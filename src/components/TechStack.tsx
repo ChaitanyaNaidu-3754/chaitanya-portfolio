@@ -1,11 +1,18 @@
 
 import React, { useRef, useEffect } from 'react';
 import { Code, Database, Server, Globe, FileCode, Cloud, Github } from 'lucide-react';
+import { ElegantShape } from './ui/component';
+
+interface TechIcon {
+  name: string;
+  icon: React.ReactNode;
+  experience: string;
+}
 
 const TechStack: React.FC = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
   
-  const techStack = [
+  const techStack: TechIcon[] = [
     { name: "HTML", icon: <FileCode className="text-[#E34F26]" />, experience: "4 years" },
     { name: "CSS", icon: <FileCode className="text-[#1572B6]" />, experience: "4 years" },
     { name: "JavaScript", icon: <Code className="text-[#F7DF1E]" />, experience: "3 years" },
@@ -23,14 +30,16 @@ const TechStack: React.FC = () => {
     { name: "Docker", icon: <Database className="text-[#2496ED]" />, experience: "1 year" },
   ];
   
-  // Auto-scrolling carousel
+  // Smooth auto-scrolling carousel
   useEffect(() => {
     if (!carouselRef.current) return;
     
-    const scrollSpeed = 0.5;
-    let animationFrameId: number;
-    let isHovered = false;
     const carousel = carouselRef.current;
+    let animationId: number;
+    let lastTime = 0;
+    let scrollPosition = 0;
+    const scrollSpeed = 0.03; // pixels per millisecond - slower for smoother scrolling
+    let isHovered = false;
     
     carousel.addEventListener('mouseenter', () => {
       isHovered = true;
@@ -40,23 +49,32 @@ const TechStack: React.FC = () => {
       isHovered = false;
     });
     
-    const scroll = () => {
+    const smoothScroll = (currentTime: number) => {
+      if (lastTime === 0) {
+        lastTime = currentTime;
+      }
+      
+      const delta = currentTime - lastTime;
+      lastTime = currentTime;
+      
       if (!isHovered && carousel) {
-        carousel.scrollLeft += scrollSpeed;
+        scrollPosition += scrollSpeed * delta;
+        carousel.scrollLeft = scrollPosition;
         
         // Reset scroll position when reached the end
-        if (carousel.scrollLeft >= carousel.scrollWidth / 2) {
+        if (scrollPosition >= carousel.scrollWidth / 2) {
+          scrollPosition = 0;
           carousel.scrollLeft = 0;
         }
       }
       
-      animationFrameId = requestAnimationFrame(scroll);
+      animationId = requestAnimationFrame(smoothScroll);
     };
     
-    scroll();
+    animationId = requestAnimationFrame(smoothScroll);
     
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      cancelAnimationFrame(animationId);
     };
   }, []);
   
@@ -85,7 +103,7 @@ const TechStack: React.FC = () => {
           {[...techStack, ...techStack].map((tech, index) => (
             <div 
               key={index} 
-              className="flex-none w-32 h-32 glass rounded-xl flex flex-col items-center justify-center p-4 group relative"
+              className="flex-none w-32 h-32 glass rounded-xl flex flex-col items-center justify-center p-4 group relative transform transition-all duration-300 hover:scale-110 hover:box-glow-cyan"
             >
               <div className="text-4xl mb-2 group-hover:text-glow-cyan transition-all duration-300 transform group-hover:scale-110">
                 {tech.icon}
@@ -121,6 +139,25 @@ const TechStack: React.FC = () => {
             <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
             <div className="absolute top-0 right-0 w-32 h-32 bg-neon-cyan/10 rounded-full blur-3xl animate-pulse"></div>
             <div className="absolute bottom-0 left-0 w-40 h-40 bg-neon-magenta/10 rounded-full blur-3xl animate-pulse-slow"></div>
+            
+            {/* Add elegant shapes */}
+            <ElegantShape
+              delay={0.3}
+              width={300}
+              height={80}
+              rotate={12}
+              gradient="from-neon-cyan/[0.05]"
+              className="right-0 top-0"
+            />
+            
+            <ElegantShape
+              delay={0.5}
+              width={250}
+              height={70}
+              rotate={-15}
+              gradient="from-neon-magenta/[0.05]"
+              className="left-0 bottom-0"
+            />
             
             {/* Animated dots */}
             <div className="absolute inset-0 overflow-hidden">

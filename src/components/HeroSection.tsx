@@ -1,7 +1,8 @@
 
 import React, { useRef, useEffect } from 'react';
 import TypewriterText from './TypewriterText';
-import { ChevronDown, Code, Database, Cloud, Laptop } from 'lucide-react';
+import { ChevronDown, Code, Database, Cloud, Laptop, FileCode } from 'lucide-react';
+import { ElegantShape } from './ui/component';
 
 const HeroSection: React.FC = () => {
   const techIconsRef = useRef<HTMLDivElement>(null);
@@ -12,36 +13,78 @@ const HeroSection: React.FC = () => {
     
     const container = techIconsRef.current;
     const icons = [
-      { name: "HTML", icon: <Code className="text-[#E34F26]" />, delay: 1000, speed: 5 },
-      { name: "CSS", icon: <Code className="text-[#1572B6]" />, delay: 0, speed: 7 },
-      { name: "JavaScript", icon: <Code className="text-[#F7DF1E]" />, delay: 2000, speed: 6 },
-      { name: "React", icon: <Code className="text-[#61DAFB]" />, delay: 500, speed: 8 },
-      { name: "Tailwind", icon: <Code className="text-[#38B2AC]" />, delay: 1500, speed: 5 },
-      { name: "Firebase", icon: <Database className="text-[#FFCA28]" />, delay: 3000, speed: 7 },
-      { name: "Cloud", icon: <Cloud className="text-[#4285F4]" />, delay: 3500, speed: 6 }
+      { 
+        name: "HTML", 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-code text-[#E34F26]"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/></svg>`, 
+        delay: 1000, 
+        speed: 5 
+      },
+      { 
+        name: "CSS", 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-code text-[#1572B6]"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/></svg>`, 
+        delay: 0, 
+        speed: 7 
+      },
+      { 
+        name: "JavaScript", 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code text-[#F7DF1E]"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`, 
+        delay: 2000, 
+        speed: 6 
+      },
+      { 
+        name: "React", 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code text-[#61DAFB]"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`, 
+        delay: 500, 
+        speed: 8 
+      },
+      { 
+        name: "Tailwind", 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code text-[#38B2AC]"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`, 
+        delay: 1500, 
+        speed: 5 
+      },
+      { 
+        name: "Firebase", 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database text-[#FFCA28]"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>`, 
+        delay: 3000, 
+        speed: 7 
+      },
+      { 
+        name: "Cloud", 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cloud text-[#4285F4]"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>`, 
+        delay: 3500, 
+        speed: 6 
+      },
+      { 
+        name: "Node.js", 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-server text-[#68A063]"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"></rect><rect width="20" height="8" x="2" y="14" rx="2" ry="2"></rect><line x1="6" x2="6.01" y1="6" y2="6"></line><line x1="6" x2="6.01" y1="18" y2="18"></line></svg>`, 
+        delay: 2500, 
+        speed: 7 
+      },
     ];
     
     const iconElements: HTMLDivElement[] = [];
     
-    // Create falling icons
-    icons.forEach(icon => {
+    // Create falling icons - more of them for denser animation
+    const iconCount = 24; // Increased from default
+    for (let i = 0; i < iconCount; i++) {
+      const iconData = icons[i % icons.length];
+      
       const iconEl = document.createElement('div');
       iconEl.className = 'absolute px-2 py-1 rounded glass flex items-center justify-center';
       
-      // Create an icon element
-      const iconContainer = document.createElement('div');
-      iconContainer.className = 'w-6 h-6 flex items-center justify-center';
-      iconContainer.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`;
+      // Create an icon element with SVG
+      iconEl.innerHTML = iconData.icon;
       
       // Add name as text
       const textEl = document.createElement('span');
       textEl.className = 'ml-1 text-xs';
-      textEl.textContent = icon.name;
+      textEl.textContent = iconData.name;
       
-      iconEl.appendChild(iconContainer);
       iconEl.appendChild(textEl);
       
-      iconEl.style.left = `${Math.random() * 80 + 10}%`;
+      // Position randomly but within bounds
+      iconEl.style.left = `${Math.random() * 85 + 5}%`;
       iconEl.style.top = '-30px';
       iconEl.style.opacity = '0';
       
@@ -54,7 +97,7 @@ const HeroSection: React.FC = () => {
         const maxY = container.offsetHeight + 30;
         
         const animateIcon = () => {
-          posY += icon.speed / 10;
+          posY += iconData.speed / 10;
           iconEl.style.transform = `translateY(${posY}px)`;
           
           // Fade in at start
@@ -70,7 +113,7 @@ const HeroSection: React.FC = () => {
           // Reset when out of view
           if (posY > maxY) {
             posY = -30;
-            iconEl.style.left = `${Math.random() * 80 + 10}%`;
+            iconEl.style.left = `${Math.random() * 85 + 5}%`;
             iconEl.style.opacity = '0';
           }
           
@@ -78,7 +121,7 @@ const HeroSection: React.FC = () => {
         };
         
         animateIcon();
-      }, icon.delay);
+      }, iconData.delay + Math.random() * 2000); // More randomized delays
     });
     
     return () => {
@@ -144,11 +187,12 @@ const HeroSection: React.FC = () => {
           
           {/* Profile image - adjusted for better centering */}
           <div className="relative z-10">
-            <div className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-[30%] overflow-hidden border-4 border-dark-gray animate-floating">
+            <div className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-[30%] overflow-hidden border-4 border-dark-gray animate-floating flex items-center justify-center">
               <img
                 src="/lovable-uploads/9f26cdc1-6ee3-4400-8ca9-6e367d9de6e0.png"
                 alt="Chaitanya Naidu"
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover object-center"
+                style={{ objectPosition: "50% 20%" }}
               />
             </div>
             
@@ -172,6 +216,30 @@ const HeroSection: React.FC = () => {
       {/* Background elements */}
       <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-neon-cyan/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-1/3 h-1/3 bg-neon-magenta/5 rounded-full blur-3xl"></div>
+      
+      {/* Grid pattern in the top left corner */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-grid-pattern opacity-10"></div>
+      </div>
+      
+      {/* Add elegant shapes for background effect */}
+      <ElegantShape
+        delay={0.3}
+        width={600}
+        height={140}
+        rotate={12}
+        gradient="from-neon-cyan/[0.05]"
+        className="left-[-10%] top-[15%]"
+      />
+      
+      <ElegantShape
+        delay={0.5}
+        width={500}
+        height={120}
+        rotate={-15}
+        gradient="from-neon-magenta/[0.05]"
+        className="right-[-5%] bottom-[15%]"
+      />
     </section>
   );
 };

@@ -2,14 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import ProjectCard from './ProjectCard';
 import { Github } from 'lucide-react';
-
-interface GithubRepo {
-  name: string;
-  description: string;
-  html_url: string;
-  homepage: string | null;
-  topics: string[];
-}
+import { ElegantShape } from './ui/component';
 
 const ProjectsSection: React.FC = () => {
   const [projects, setProjects] = useState<any[]>([]);
@@ -24,29 +17,77 @@ const ProjectsSection: React.FC = () => {
           throw new Error('Failed to fetch repositories');
         }
         
-        const repos: GithubRepo[] = await response.json();
+        const allRepos = await response.json();
         
-        // Get image placeholders for the repos
-        const images = [
-          "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800&q=80"
+        // The specific repositories we want to display
+        const targetRepoNames = [
+          'ai_interview_prep', 
+          'employee_management_system-reactjs', 
+          'EDA-Exploratory-Data-Analysis-on-Dataset', 
+          'Task-Management-System-with-Flask-Backend', 
+          'ShoppingCartApp-ReactJS'
         ];
         
-        // Map repositories to project format
-        const projectData = repos.slice(0, 5).map((repo, index) => ({
-          title: repo.name,
-          description: repo.description || `A project repository on GitHub: ${repo.name}`,
-          image: images[index % images.length],
-          tags: repo.topics.length > 0 ? repo.topics : ["GitHub", "Repository"],
-          githubUrl: repo.html_url,
-          liveUrl: repo.homepage,
-        }));
+        // Filter the repos to get only the ones we want
+        const filteredRepos = allRepos.filter((repo: any) => 
+          targetRepoNames.includes(repo.name)
+        );
         
-        setProjects(projectData);
+        // Data for the specific repositories with custom titles and images
+        const projectData = [
+          {
+            repoName: 'ai_interview_prep',
+            title: 'AI Interview Coach',
+            description: 'A smart interview preparation platform that uses AI to provide personalized feedback on responses.',
+            image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
+            tags: ['React', 'AI', 'Python']
+          },
+          {
+            repoName: 'employee_management_system-reactjs',
+            title: 'Enterprise HR Dashboard',
+            description: 'Comprehensive employee management system with analytics dashboard and performance tracking.',
+            image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80',
+            tags: ['React', 'Firebase', 'Chart.js']
+          },
+          {
+            repoName: 'EDA-Exploratory-Data-Analysis-on-Dataset',
+            title: 'Data Explorer Pro',
+            description: 'Interactive data analysis tool that visualizes complex datasets for easier insights extraction.',
+            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+            tags: ['Python', 'Pandas', 'Matplotlib']
+          },
+          {
+            repoName: 'Task-Management-System-with-Flask-Backend',
+            title: 'TaskFlow Manager',
+            description: 'Intuitive task management application with real-time updates and team collaboration features.',
+            image: 'https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?auto=format&fit=crop&w=800&q=80',
+            tags: ['Flask', 'Python', 'JavaScript']
+          },
+          {
+            repoName: 'ShoppingCartApp-ReactJS',
+            title: 'ShopSmart E-Commerce',
+            description: 'Modern e-commerce platform with seamless checkout experience and real-time inventory management.',
+            image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=800&q=80',
+            tags: ['React', 'Redux', 'NodeJS']
+          }
+        ];
+        
+        // Map repositories to project format with custom data
+        const mappedProjects = filteredRepos.map((repo: any) => {
+          // Find the custom data for this repo
+          const customData = projectData.find(p => p.repoName === repo.name);
+          
+          return {
+            title: customData?.title || repo.name,
+            description: customData?.description || repo.description || `A project repository on GitHub: ${repo.name}`,
+            image: customData?.image || 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80',
+            tags: customData?.tags || repo.topics || ["GitHub", "Repository"],
+            githubUrl: repo.html_url,
+            liveUrl: repo.homepage,
+          };
+        });
+        
+        setProjects(mappedProjects);
         setIsLoading(false);
       } catch (err) {
         console.error('Error fetching GitHub repositories:', err);
@@ -55,41 +96,39 @@ const ProjectsSection: React.FC = () => {
         // Fallback data
         const fallbackProjects = [
           {
-            title: "E-Commerce Platform",
-            description: "A fully responsive e-commerce platform built with React, Next.js, and Stripe integration for payments.",
-            image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
-            tags: ["React", "Next.js", "Stripe"],
-            githubUrl: "https://github.com/ChaitanyaNaidu-3754",
-            liveUrl: "https://example.com"
+            title: "AI Interview Coach",
+            description: "A smart interview preparation platform that uses AI to provide personalized feedback on responses.",
+            image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
+            tags: ["React", "AI", "Python"],
+            githubUrl: "https://github.com/ChaitanyaNaidu-3754/ai_interview_prep"
           },
           {
-            title: "Task Management App",
-            description: "A collaborative task management application with real-time updates using Firebase.",
-            image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
-            tags: ["React", "Firebase", "Tailwind"],
-            githubUrl: "https://github.com/ChaitanyaNaidu-3754"
+            title: "Enterprise HR Dashboard",
+            description: "Comprehensive employee management system with analytics dashboard and performance tracking.",
+            image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
+            tags: ["React", "Firebase", "Chart.js"],
+            githubUrl: "https://github.com/ChaitanyaNaidu-3754/employee_management_system-reactjs"
           },
           {
-            title: "Weather Dashboard",
-            description: "Interactive weather dashboard with data visualization using Chart.js and OpenWeather API.",
-            image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
-            tags: ["JavaScript", "Chart.js", "API"],
-            githubUrl: "https://github.com/ChaitanyaNaidu-3754",
-            liveUrl: "https://example.com"
+            title: "Data Explorer Pro",
+            description: "Interactive data analysis tool that visualizes complex datasets for easier insights extraction.",
+            image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+            tags: ["Python", "Pandas", "Matplotlib"],
+            githubUrl: "https://github.com/ChaitanyaNaidu-3754/EDA-Exploratory-Data-Analysis-on-Dataset"
           },
           {
-            title: "AI Image Generator",
-            description: "Application that generates images based on text prompts using OpenAI's DALL-E API.",
-            image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=800&q=80",
-            tags: ["React", "OpenAI", "Node.js"],
-            githubUrl: "https://github.com/ChaitanyaNaidu-3754"
+            title: "TaskFlow Manager",
+            description: "Intuitive task management application with real-time updates and team collaboration features.",
+            image: "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?auto=format&fit=crop&w=800&q=80",
+            tags: ["Flask", "Python", "JavaScript"],
+            githubUrl: "https://github.com/ChaitanyaNaidu-3754/Task-Management-System-with-Flask-Backend"
           },
           {
-            title: "Mobile Fitness App",
-            description: "Cross-platform fitness tracking application built with Flutter and Firebase.",
-            image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
-            tags: ["Flutter", "Firebase", "Dart"],
-            githubUrl: "https://github.com/ChaitanyaNaidu-3754"
+            title: "ShopSmart E-Commerce",
+            description: "Modern e-commerce platform with seamless checkout experience and real-time inventory management.",
+            image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=800&q=80",
+            tags: ["React", "Redux", "NodeJS"],
+            githubUrl: "https://github.com/ChaitanyaNaidu-3754/ShoppingCartApp-ReactJS"
           }
         ];
         
@@ -167,6 +206,25 @@ const ProjectsSection: React.FC = () => {
       {/* Background elements */}
       <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-neon-magenta/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-neon-cyan/5 rounded-full blur-3xl"></div>
+      
+      {/* Add elegant shapes */}
+      <ElegantShape
+        delay={0.2}
+        width={400}
+        height={100}
+        rotate={20}
+        gradient="from-neon-cyan/[0.05]"
+        className="right-[5%] top-[10%]"
+      />
+      
+      <ElegantShape
+        delay={0.4}
+        width={350}
+        height={90}
+        rotate={-15}
+        gradient="from-neon-magenta/[0.05]"
+        className="left-[5%] bottom-[10%]"
+      />
     </section>
   );
 };

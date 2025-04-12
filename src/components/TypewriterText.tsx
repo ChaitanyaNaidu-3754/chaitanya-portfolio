@@ -3,53 +3,54 @@ import React, { useState, useEffect } from 'react';
 
 interface TypewriterTextProps {
   texts: string[];
-  delay?: number;
   className?: string;
+  typingSpeed?: number;
+  deletingSpeed?: number;
+  delayBetween?: number;
 }
 
-const TypewriterText: React.FC<TypewriterTextProps> = ({ 
-  texts, 
-  delay = 2000, 
-  className = ""
+const TypewriterText: React.FC<TypewriterTextProps> = ({
+  texts,
+  className = '',
+  typingSpeed = 100,
+  deletingSpeed = 50,
+  delayBetween = 2000
 }) => {
-  const [index, setIndex] = useState(0);
-  const [text, setText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [speed, setSpeed] = useState(100);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [currentText, setCurrentText] = useState('');
+  const [isTyping, setIsTyping] = useState(true);
   
   useEffect(() => {
-    const timer = setTimeout(() => {
-      // Current text being processed
-      const fullText = texts[index];
-      
-      // If deleting
-      if (isDeleting) {
-        setText(fullText.substring(0, text.length - 1));
-        setSpeed(50); // Faster when deleting
-      } else {
-        // If adding
-        setText(fullText.substring(0, text.length + 1));
-        setSpeed(100); // Normal speed when adding
-      }
-      
-      // When text is fully typed
-      if (!isDeleting && text === fullText) {
-        setTimeout(() => setIsDeleting(true), delay);
-      } 
-      // When text is fully deleted
-      else if (isDeleting && text === "") {
-        setIsDeleting(false);
-        setIndex((prevIndex) => (prevIndex + 1) % texts.length);
-      }
-    }, speed);
+    let timeout: NodeJS.Timeout;
     
-    return () => clearTimeout(timer);
-  }, [text, isDeleting, index, texts, delay, speed]);
+    if (isTyping) {
+      if (currentText.length < texts[currentTextIndex].length) {
+        timeout = setTimeout(() => {
+          setCurrentText(prev => prev + texts[currentTextIndex][prev.length]);
+        }, typingSpeed);
+      } else {
+        timeout = setTimeout(() => {
+          setIsTyping(false);
+        }, delayBetween);
+      }
+    } else {
+      if (currentText.length > 0) {
+        timeout = setTimeout(() => {
+          setCurrentText(prev => prev.slice(0, -1));
+        }, deletingSpeed);
+      } else {
+        setCurrentTextIndex(prev => (prev + 1) % texts.length);
+        setIsTyping(true);
+      }
+    }
+    
+    return () => clearTimeout(timeout);
+  }, [currentText, currentTextIndex, isTyping, texts, typingSpeed, deletingSpeed, delayBetween]);
   
   return (
-    <span className={`${className} inline-block`}>
-      {text}
-      <span className="animate-typewriter-blink">|</span>
+    <span className={className}>
+      {currentText}
+      <span className="inline-block w-0.5 h-5 ml-1 bg-white animate-blink"></span>
     </span>
   );
 };
