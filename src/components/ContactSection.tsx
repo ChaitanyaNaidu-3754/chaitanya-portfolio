@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import ParticleBackground from './ParticleBackground';
-import { Github, Linkedin, Twitter, Mail, CheckCircle } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, CheckCircle, FileText } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 const ContactSection: React.FC = () => {
@@ -139,8 +139,20 @@ const ContactSection: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex items-center">
                   <Mail className="w-5 h-5 mr-3 text-neon-cyan" />
-                  <a href="mailto:contact@chaitanyanaidu.dev" className="text-light-gray hover-underline-animation">
-                    contact@chaitanyanaidu.dev
+                  <a href="mailto:chaitu.3754@gmail.com" className="text-light-gray hover-underline-animation">
+                    chaitu.3754@gmail.com
+                  </a>
+                </div>
+                
+                <div className="flex items-center mt-4">
+                  <FileText className="w-5 h-5 mr-3 text-neon-magenta" />
+                  <a 
+                    href="https://drive.google.com/file/d/1yHALtQHvSVYPB0QTY-zvnPqSGq3B_ott/view?usp=sharing" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-light-gray hover-underline-animation"
+                  >
+                    View Resume
                   </a>
                 </div>
                 
@@ -157,7 +169,7 @@ const ContactSection: React.FC = () => {
               
               <div className="flex flex-col space-y-4">
                 <a 
-                  href="https://github.com" 
+                  href="https://github.com/ChaitanyaNaidu-3754" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="flex items-center p-3 rounded-lg glass-dark hover:neon-border-cyan transition-all duration-300 group"
@@ -184,6 +196,16 @@ const ContactSection: React.FC = () => {
                 >
                   <Twitter className="w-5 h-5 mr-3 text-light-gray group-hover:text-neon-cyan transition-colors" />
                   <span className="text-light-gray group-hover:text-white transition-colors">Twitter</span>
+                </a>
+                
+                <a 
+                  href="https://drive.google.com/file/d/1yHALtQHvSVYPB0QTY-zvnPqSGq3B_ott/view?usp=sharing" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center p-3 rounded-lg glass-dark hover:neon-border-magenta transition-all duration-300 group"
+                >
+                  <FileText className="w-5 h-5 mr-3 text-light-gray group-hover:text-neon-magenta transition-colors" />
+                  <span className="text-light-gray group-hover:text-white transition-colors">Resume</span>
                 </a>
               </div>
             </div>

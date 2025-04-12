@@ -1,5 +1,6 @@
 
 import React, { useEffect } from 'react';
+import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
 import TechStack from '@/components/TechStack';
@@ -15,6 +16,7 @@ const Index: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-dark text-foreground overflow-x-hidden">
+      <Navbar />
       <HeroSection />
       <AboutSection />
       <TechStack />

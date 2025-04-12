@@ -1,7 +1,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import TypewriterText from './TypewriterText';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Code, Database, Cloud, Laptop } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   const techIconsRef = useRef<HTMLDivElement>(null);
@@ -12,13 +12,13 @@ const HeroSection: React.FC = () => {
     
     const container = techIconsRef.current;
     const icons = [
-      { name: "HTML", color: "#E34F26", delay: 1000, speed: 5 },
-      { name: "CSS", color: "#1572B6", delay: 0, speed: 7 },
-      { name: "JavaScript", color: "#F7DF1E", delay: 2000, speed: 6 },
-      { name: "React", color: "#61DAFB", delay: 500, speed: 8 },
-      { name: "Tailwind", color: "#38B2AC", delay: 1500, speed: 5 },
-      { name: "Firebase", color: "#FFCA28", delay: 3000, speed: 7 },
-      { name: "Cloud", color: "#4285F4", delay: 3500, speed: 6 }
+      { name: "HTML", icon: <Code className="text-[#E34F26]" />, delay: 1000, speed: 5 },
+      { name: "CSS", icon: <Code className="text-[#1572B6]" />, delay: 0, speed: 7 },
+      { name: "JavaScript", icon: <Code className="text-[#F7DF1E]" />, delay: 2000, speed: 6 },
+      { name: "React", icon: <Code className="text-[#61DAFB]" />, delay: 500, speed: 8 },
+      { name: "Tailwind", icon: <Code className="text-[#38B2AC]" />, delay: 1500, speed: 5 },
+      { name: "Firebase", icon: <Database className="text-[#FFCA28]" />, delay: 3000, speed: 7 },
+      { name: "Cloud", icon: <Cloud className="text-[#4285F4]" />, delay: 3500, speed: 6 }
     ];
     
     const iconElements: HTMLDivElement[] = [];
@@ -26,9 +26,21 @@ const HeroSection: React.FC = () => {
     // Create falling icons
     icons.forEach(icon => {
       const iconEl = document.createElement('div');
-      iconEl.className = 'absolute text-sm px-2 py-1 rounded glass';
-      iconEl.textContent = icon.name;
-      iconEl.style.color = icon.color;
+      iconEl.className = 'absolute px-2 py-1 rounded glass flex items-center justify-center';
+      
+      // Create an icon element
+      const iconContainer = document.createElement('div');
+      iconContainer.className = 'w-6 h-6 flex items-center justify-center';
+      iconContainer.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`;
+      
+      // Add name as text
+      const textEl = document.createElement('span');
+      textEl.className = 'ml-1 text-xs';
+      textEl.textContent = icon.name;
+      
+      iconEl.appendChild(iconContainer);
+      iconEl.appendChild(textEl);
+      
       iconEl.style.left = `${Math.random() * 80 + 10}%`;
       iconEl.style.top = '-30px';
       iconEl.style.opacity = '0';
@@ -80,9 +92,16 @@ const HeroSection: React.FC = () => {
       aboutSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   
   return (
-    <section className="min-h-screen relative flex items-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section id="hero" className="min-h-screen relative flex items-center px-4 sm:px-6 lg:px-8 overflow-hidden pt-20">
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 py-12 z-10">
         {/* Left side - Text */}
         <div className="flex flex-col justify-center animate-fade-in-left">
@@ -103,11 +122,17 @@ const HeroSection: React.FC = () => {
           </p>
           
           <div className="flex flex-wrap gap-4">
-            <button className="px-6 py-3 rounded-lg bg-dark-light neon-border-cyan text-white hover:scale-105 animate-glow-pulse transition-transform duration-300">
+            <button 
+              onClick={scrollToContact}
+              className="px-6 py-3 rounded-lg bg-dark-light neon-border-cyan text-white hover:scale-105 animate-glow-pulse transition-transform duration-300"
+            >
               Hire Me
             </button>
             
-            <button className="px-6 py-3 rounded-lg bg-dark-light neon-border-magenta text-white hover:scale-105 transition-transform duration-300">
+            <button 
+              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-6 py-3 rounded-lg bg-dark-light neon-border-magenta text-white hover:scale-105 transition-transform duration-300"
+            >
               View Projects
             </button>
           </div>
@@ -117,13 +142,13 @@ const HeroSection: React.FC = () => {
         <div className="relative flex items-center justify-center animate-fade-in-right">
           <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan/20 to-neon-magenta/20 rounded-full blur-3xl opacity-30 animate-spin-slow"></div>
           
-          {/* Profile image */}
+          {/* Profile image - adjusted for better centering */}
           <div className="relative z-10">
             <div className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-[30%] overflow-hidden border-4 border-dark-gray animate-floating">
               <img
                 src="/lovable-uploads/9f26cdc1-6ee3-4400-8ca9-6e367d9de6e0.png"
                 alt="Chaitanya Naidu"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-top"
               />
             </div>
             
