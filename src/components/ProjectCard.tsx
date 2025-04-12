@@ -11,6 +11,7 @@ interface ProjectCardProps {
   githubUrl: string;
   liveUrl?: string;
   className?: string;
+  style?: React.CSSProperties; // Add style prop to the interface
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -20,7 +21,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   tags,
   githubUrl,
   liveUrl,
-  className
+  className,
+  style // Accept the style prop
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   
@@ -38,7 +40,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         transform: isHovered 
           ? "perspective(1000px) rotateX(5deg) rotateY(5deg)" 
           : "perspective(1000px) rotateX(0) rotateY(0)",
-        transition: "transform 0.3s ease, box-shadow 0.3s ease"
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        ...style // Spread the additional style props
       }}
     >
       <div className="relative overflow-hidden h-48">
