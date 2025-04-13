@@ -1,7 +1,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import TypewriterText from './TypewriterText';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Code, Database, Cloud, Laptop, FileCode } from 'lucide-react';
 import { ElegantShape } from './ui/component';
 
 const HeroSection: React.FC = () => {
@@ -15,49 +15,49 @@ const HeroSection: React.FC = () => {
     const icons = [
       { 
         name: "HTML", 
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path fill="#E34F26" d="M5.08 0L4.126 12.24h13.746L17.08 0H5.08z"></path><path fill="#EF652A" d="M14.347 3.324H11.06v2.576h3.287v-2.576zm0 2.576v2.576H7.774l.23 2.576h6.343l-.23 3.324-1.955.54-1.955-.54-.115-1.404H7.774l.23 2.576 3.402 1.08 3.402-1.08.461-4.944H7.774l-.23-2.576h6.803z"></path></svg>`, 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-code text-[#E34F26]"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/></svg>`, 
         delay: 1000, 
         speed: 5 
       },
       { 
         name: "CSS", 
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path fill="#1572B6" d="M5.08 0l.944 12.24h13.746l-.944-12.24H5.08z"></path><path fill="#33A9DC" d="M16.654 10.77l-5.593 2.357-5.594-2.356.23-2.576h10.726l.231 2.576zm-5.593 4.403l-3.402-1.08-.231-2.576h2.318l.115 1.404 1.955.54 1.955-.54.115-1.404h2.318l-.23 2.576-3.402 1.08z"></path></svg>`, 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-code text-[#1572B6]"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/></svg>`, 
         delay: 0, 
         speed: 7 
       },
       { 
         name: "JavaScript", 
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path fill="#F7DF1E" d="M0 0h24v24H0z"></path><path d="M18.07 19.565c-.51.923-1.55 1.638-3.08 1.638-1.98 0-3.464-1.13-3.464-3.94V9.76h2.773v7.494c0 1.27.655 1.544 1.303 1.544.654 0 1.124-.366 1.472-.773l.996 1.54zM8.927 21.153c-1.823 0-3.015-.913-3.594-2.116l1.921-.96c.41.696 1.14 1.107 1.872 1.107.806 0 1.215-.32 1.215-.869 0-.73-.978-.977-1.872-1.338-1.261-.503-2.67-1.128-2.67-2.857 0-1.635 1.374-2.764 3.24-2.764 1.347 0 2.51.59 3.196 1.765l-1.875.96c-.341-.544-.874-.81-1.466-.81-.597 0-.939.274-.939.687 0 .637.977.85 1.913 1.25 1.261.544 2.628 1.152 2.628 2.931 0 1.848-1.557 2.95-3.57 2.95z"></path></svg>`, 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code text-[#F7DF1E]"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`, 
         delay: 2000, 
         speed: 6 
       },
       { 
         name: "React", 
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path fill="#61DAFB" d="M12 9.861a2.139 2.139 0 100 4.278 2.139 2.139 0 100-4.278zM12 18.089c4.889 0 8.873-1.37 8.873-3.05 0-1.68-3.984-3.051-8.873-3.051-4.889 0-8.873 1.37-8.873 3.05 0 1.68 3.984 3.051 8.873 3.051z"></path><path stroke="#61DAFB" d="M6.154 11.089c2.445-4.23 5.57-6.505 7.002-5.051 1.432 1.454-.014 5.79-2.458 10.02-2.445 4.23-5.57 6.505-7.002 5.051-1.432-1.454.014-5.79 2.458-10.02z"></path><path stroke="#61DAFB" d="M17.846 11.089c-2.445-4.23-5.57-6.505-7.002-5.051-1.432 1.454.014 5.79 2.458 10.02 2.445 4.23 5.57 6.505 7.002 5.051 1.432-1.454-.014-5.79-2.458-10.02z"></path></svg>`, 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code text-[#61DAFB]"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`, 
         delay: 500, 
         speed: 8 
       },
       { 
         name: "Tailwind", 
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path fill="#38B2AC" d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"></path></svg>`, 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code text-[#38B2AC]"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`, 
         delay: 1500, 
         speed: 5 
       },
       { 
         name: "Firebase", 
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path fill="#FFA000" d="M3.89 15.673L6.255.461A.542.542 0 017.27.288l2.543 4.771zm16.794 3.692l-2.25-14a.54.54 0 00-.919-.295L3.316 19.365l7.856 4.427a1.621 1.621 0 001.588 0zM14.3 7.147l-1.82-3.482a.542.542 0 00-.96 0L3.53 17.984z"></path></svg>`, 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database text-[#FFCA28]"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>`, 
         delay: 3000, 
         speed: 7 
       },
       { 
         name: "Cloud", 
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path fill="#4285F4" d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>`, 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cloud text-[#4285F4]"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>`, 
         delay: 3500, 
         speed: 6 
       },
       { 
         name: "Node.js", 
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path fill="#68A063" d="M12 21.985c-.275 0-.532-.074-.772-.202l-2.439-1.448c-.365-.203-.182-.277-.072-.314.496-.165.588-.202 1.101-.493.056-.033.129-.021.182.021l1.87 1.12c.072.039.166.039.231 0l7.292-4.249c.072-.039.116-.116.116-.202V7.768c0-.085-.044-.165-.116-.201l-7.292-4.225c-.072-.039-.165-.039-.231 0L4.578 7.566c-.072.039-.113.129-.113.201v8.479c0 .077.041.165.113.201l1.994 1.157c1.076.551 1.738-.095 1.738-.734V8.437c0-.113.097-.21.21-.21h.926c.113 0 .21.094.21.21v8.434c0 1.448-.782 2.28-2.146 2.28-.422 0-.753 0-1.67-.46l-1.902-1.103A1.553 1.553 0 013 16.382V7.904c0-.579.31-1.114.811-1.403L11.1 2.252a1.583 1.583 0 011.8 0l7.292 4.249c.5.289.81.824.81 1.403v8.479c0 .579-.31 1.114-.811 1.402l-7.292 4.226a1.599 1.599 0 01-.774.201zm2.143-5.873c-3.186 0-3.862-.738-3.862-1.353 0-.113.093-.21.21-.21h.943c.107 0 .194.077.21.18.142.968.562 1.449 2.499 1.449 1.533 0 2.188-.354 2.188-1.177 0-.474-.186-.83-2.578-1.067-1.999-.198-3.241-.646-3.241-2.267 0-1.493 1.242-2.388 3.323-2.388 2.34 0 3.49.822 3.638 2.581.006.56.003.113-.056.17a.213.213 0 01-.154.061h-.943a.218.218 0 01-.204-.166c-.229-1.023-.786-1.353-2.281-1.353-1.687 0-1.884.599-1.884 1.043 0 .544.232.699 2.497.997 2.241.297 3.323.72 3.323 2.311 0 1.614-1.332 2.521-3.658 2.521z"></path></svg>`, 
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-server text-[#68A063]"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"></rect><rect width="20" height="8" x="2" y="14" rx="2" ry="2"></rect><line x1="6" x2="6.01" y1="6" y2="6"></line><line x1="6" x2="6.01" y1="18" y2="18"></line></svg>`, 
         delay: 2500, 
         speed: 7 
       },
@@ -66,7 +66,7 @@ const HeroSection: React.FC = () => {
     const iconElements: HTMLDivElement[] = [];
     
     // Create falling icons - more of them for denser animation
-    const iconCount = 36; // Increased from 24 for denser animation
+    const iconCount = 24; // Increased from default
     for (let i = 0; i < iconCount; i++) {
       const iconData = icons[i % icons.length];
       
@@ -83,8 +83,8 @@ const HeroSection: React.FC = () => {
       
       iconEl.appendChild(textEl);
       
-      // Position randomly but within bounds - wider spread
-      iconEl.style.left = `${Math.random() * 90 + 5}%`;
+      // Position randomly but within bounds
+      iconEl.style.left = `${Math.random() * 85 + 5}%`;
       iconEl.style.top = '-30px';
       iconEl.style.opacity = '0';
       
@@ -113,7 +113,7 @@ const HeroSection: React.FC = () => {
           // Reset when out of view
           if (posY > maxY) {
             posY = -30;
-            iconEl.style.left = `${Math.random() * 90 + 5}%`;
+            iconEl.style.left = `${Math.random() * 85 + 5}%`;
             iconEl.style.opacity = '0';
           }
           
@@ -122,7 +122,7 @@ const HeroSection: React.FC = () => {
         
         animateIcon();
       }, iconData.delay + Math.random() * 2000); // More randomized delays
-    }
+    });
     
     return () => {
       iconElements.forEach(el => el.remove());
@@ -191,8 +191,8 @@ const HeroSection: React.FC = () => {
               <img
                 src="/lovable-uploads/9f26cdc1-6ee3-4400-8ca9-6e367d9de6e0.png"
                 alt="Chaitanya Naidu"
-                className="w-full h-full object-cover"
-                style={{ objectPosition: "50% 30%" }} 
+                className="w-full h-full object-cover object-center"
+                style={{ objectPosition: "50% 20%" }}
               />
             </div>
             
@@ -217,9 +217,9 @@ const HeroSection: React.FC = () => {
       <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-neon-cyan/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-1/3 h-1/3 bg-neon-magenta/5 rounded-full blur-3xl"></div>
       
-      {/* Grid pattern in the top left corner - enlarged */}
+      {/* Grid pattern in the top left corner */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMCAwaDIwdjIwSDB6IiBmaWxsLW9wYWNpdHk9IjAiLz48Y2lyY2xlIGN4PSIxMCIgY3k9IjEwIiByPSIxIi8+PC9nPjwvZz48L3N2Zz4=')] opacity-20"></div>
+        <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-grid-pattern opacity-10"></div>
       </div>
       
       {/* Add elegant shapes for background effect */}
