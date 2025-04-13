@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import TypewriterText from './TypewriterText';
 import { ChevronDown, Code, Database, Cloud, Laptop, FileCode } from 'lucide-react';
@@ -122,7 +121,7 @@ const HeroSection: React.FC = () => {
         
         animateIcon();
       }, iconData.delay + Math.random() * 2000); // More randomized delays
-    });
+    }
     
     return () => {
       iconElements.forEach(el => el.remove());
