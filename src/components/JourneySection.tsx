@@ -26,17 +26,17 @@ const JourneySection: React.FC = () => {
   ];
 
   return (
-    <section id="journey" className="py-20 relative">
-      <div className="mx-auto">
+    <section id="journey" className="py-20 px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-3xl mx-auto">
         {/* Section heading */}
-        <div className="mb-8">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-glow-cyan">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-glow-cyan">
             My Journey
           </h2>
-          <p className="text-light-gray">
+          <p className="text-light-gray max-w-2xl mx-auto">
             The path I've taken in education and professional development.
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-neon-cyan to-neon-magenta mt-4"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-neon-cyan to-neon-magenta mx-auto mt-6"></div>
         </div>
         
         {/* Timeline */}
@@ -44,6 +44,29 @@ const JourneySection: React.FC = () => {
           <Timeline items={journeyItems} />
         </div>
       </div>
+      
+      {/* Background elements */}
+      <div className="absolute top-0 right-0 w-1/4 h-1/4 bg-neon-cyan/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-neon-magenta/5 rounded-full blur-3xl"></div>
+      
+      {/* Add elegant shapes */}
+      <ElegantShape
+        delay={0.2}
+        width={300}
+        height={80}
+        rotate={15}
+        gradient="from-neon-cyan/[0.05]"
+        className="right-[10%] top-[20%]"
+      />
+      
+      <ElegantShape
+        delay={0.4}
+        width={250}
+        height={70}
+        rotate={-10}
+        gradient="from-neon-magenta/[0.05]"
+        className="left-[10%] bottom-[20%]"
+      />
     </section>
   );
 };

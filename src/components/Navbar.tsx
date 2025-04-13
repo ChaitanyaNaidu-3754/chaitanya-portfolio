@@ -34,12 +34,9 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="w-10 h-10 mr-2 relative overflow-hidden">
-              <img 
-                src="/lovable-uploads/b3ec541c-035e-45dc-a602-6eaff57ad367.png" 
-                alt="Portfolio Logo" 
-                className="w-full h-full object-contain"
-              />
+            <div className="w-8 h-8 mr-2 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan to-neon-magenta rounded-full opacity-50 animate-pulse"></div>
+              <Code className="w-full h-full text-white relative z-10" />
             </div>
             <a href="#hero" className="text-xl sm:text-2xl font-bold text-glow-cyan">
               DevPortfolio

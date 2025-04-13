@@ -19,11 +19,9 @@ const Index: React.FC = () => {
     <div className="min-h-screen bg-dark text-foreground overflow-x-hidden">
       <Navbar />
       <HeroSection />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <AboutSection />
-        <JourneySection />
-      </div>
+      <AboutSection />
       <TechStack />
+      <JourneySection />
       <ProjectsSection />
       <ContactSection />
       <Footer />
