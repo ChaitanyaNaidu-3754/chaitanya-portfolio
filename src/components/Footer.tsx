@@ -15,11 +15,11 @@ const Footer: React.FC = () => {
   };
   
   const navLinks = [
-    { name: "Home", href: "#hero" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#tech-stack" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" }
+    { name: "Home", href: "hero" },
+    { name: "About", href: "about" },
+    { name: "Skills", href: "tech-stack" },
+    { name: "Projects", href: "projects" },
+    { name: "Contact", href: "contact" }
   ];
   
   return (
@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
             {navLinks.map((link) => (
               <button 
                 key={link.name} 
-                onClick={() => scrollToSection(link.href.substring(1))}
+                onClick={() => scrollToSection(link.href)}
                 className="text-light-gray hover:text-white hover-underline-animation"
               >
                 {link.name}

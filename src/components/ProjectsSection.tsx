@@ -37,7 +37,7 @@ const ProjectsSection: React.FC = () => {
         const projectData = [
           {
             repoName: 'ai_interview_prep',
-            description: 'A smart interview preparation platform that uses AI to provide personalized feedback on responses.',
+            description: 'An AI-powered interview preparation platform that provides personalized feedback on user responses.',
             image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
             tags: ['React', 'AI', 'Python']
           },
@@ -73,7 +73,7 @@ const ProjectsSection: React.FC = () => {
           const customData = projectData.find(p => p.repoName === repo.name);
           
           return {
-            title: repo.name, // Keep original GitHub repo name
+            title: repo.name,
             description: customData?.description || repo.description || `A project repository on GitHub: ${repo.name}`,
             image: customData?.image || 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80',
             tags: customData?.tags || repo.topics || ["GitHub", "Repository"],
@@ -88,11 +88,11 @@ const ProjectsSection: React.FC = () => {
         console.error('Error fetching GitHub repositories:', err);
         setError('Failed to load projects. Using fallback data.');
         
-        // Fallback data with original repo names
+        // Fallback data
         const fallbackProjects = [
           {
             title: "ai_interview_prep",
-            description: "A smart interview preparation platform that uses AI to provide personalized feedback on responses.",
+            description: "An AI-powered interview preparation platform that provides personalized feedback on user responses.",
             image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
             tags: ["React", "AI", "Python"],
             githubUrl: "https://github.com/ChaitanyaNaidu-3754/ai_interview_prep"
