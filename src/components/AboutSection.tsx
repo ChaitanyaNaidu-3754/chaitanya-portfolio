@@ -1,8 +1,7 @@
 
 import React from 'react';
 import TypewriterText from './TypewriterText';
-import { CheckCircle, Clock, MessageSquare, Star, StarHalf, Calendar, Briefcase, GraduationCap } from 'lucide-react';
-import { ElegantShape } from './ui/component';
+import { CheckCircle, Clock, MessageSquare } from 'lucide-react';
 
 const AboutSection: React.FC = () => {
   const qualities = [
@@ -22,31 +21,6 @@ const AboutSection: React.FC = () => {
       icon: <Clock className="w-10 h-10 text-neon-cyan" />
     }
   ];
-  
-  const skills = [
-    { name: "Frontend Development", rating: 4 },
-    { name: "UX/UI Design", rating: 4 },
-    { name: "Database", rating: 4 },
-    { name: "Full Stack Development", rating: 4 },
-    { name: "AI Integration", rating: 4 }
-  ];
-  
-  // Function to render skill rating stars
-  const renderStars = (rating: number) => {
-    const stars = [];
-    
-    for (let i = 1; i <= 5; i++) {
-      if (i <= rating) {
-        stars.push(<Star key={i} className="w-4 h-4 text-neon-cyan" fill="#00FFFF" />);
-      } else if (i - 0.5 <= rating) {
-        stars.push(<StarHalf key={i} className="w-4 h-4 text-neon-cyan" fill="#00FFFF" />);
-      } else {
-        stars.push(<Star key={i} className="w-4 h-4 text-dark-gray" />);
-      }
-    }
-    
-    return stars;
-  };
   
   return (
     <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 relative">
@@ -76,30 +50,10 @@ const AboutSection: React.FC = () => {
               My journey in the tech world began with a curiosity for how things work, which 
               evolved into a career building solutions that solve real problems.
             </p>
-            <p className="text-light-gray mb-6 relative z-10">
+            <p className="text-light-gray relative z-10">
               I specialize in modern JavaScript frameworks like React, along with expertise in 
               cloud technologies and UI/UX design principles.
             </p>
-            
-            {/* Skill rating bars */}
-            <div className="space-y-4 relative z-10">
-              <h4 className="text-lg font-semibold text-neon-magenta mb-2">Skills</h4>
-              
-              {skills.map((skill, index) => (
-                <div key={index} className="space-y-1">
-                  <div className="flex justify-between items-center">
-                    <span className="text-light-gray">{skill.name}</span>
-                    <div className="flex">{renderStars(skill.rating)}</div>
-                  </div>
-                  <div className="h-1.5 bg-dark-gray rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-neon-cyan to-neon-magenta rounded-full"
-                      style={{ width: `${(skill.rating / 5) * 100}%` }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
             
             {/* Cool background animation */}
             <div className="absolute inset-0 -z-0">
@@ -107,74 +61,44 @@ const AboutSection: React.FC = () => {
               <div className="absolute top-0 right-0 w-32 h-32 bg-neon-cyan/10 rounded-full blur-3xl animate-pulse"></div>
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-neon-magenta/10 rounded-full blur-3xl animate-pulse-slow"></div>
             </div>
-            
-            {/* Add elegant shapes for additional effects */}
-            <ElegantShape
-              delay={0.2}
-              width={300}
-              height={80}
-              rotate={-8}
-              gradient="from-neon-cyan/[0.05]"
-              className="right-[-5%] bottom-[5%]"
-            />
           </div>
           
           {/* Timeline */}
           <div className="glass rounded-xl p-6 animate-fade-in-right relative overflow-hidden">
             <h3 className="text-2xl font-bold mb-4 text-glow-magenta">My Journey</h3>
             
-            <div className="relative pl-8 border-l-2 border-gradient-to-b from-neon-cyan via-neon-magenta to-neon-cyan">
+            <div className="relative pl-8 border-l border-dark-gray">
               {/* Timeline item 1 - Freelancer */}
               <div className="mb-8 relative group">
-                <div className="absolute -left-[25px] w-10 h-10 flex items-center justify-center rounded-full bg-dark border-2 border-neon-cyan box-glow-cyan z-10">
-                  <Briefcase className="w-5 h-5 text-neon-cyan" />
-                </div>
-                <div className="glass-dark rounded-lg p-4 transform transition-all duration-300 group-hover:translate-x-2 group-hover:neon-border-cyan group-hover:box-glow-cyan">
-                  <h4 className="text-lg font-semibold flex items-center">
-                    <span className="text-glow-cyan">Freelancer</span>
-                    <span className="ml-2 px-2 py-0.5 rounded bg-neon-cyan/10 text-xs text-neon-cyan">2025 - Present</span>
-                  </h4>
-                  <p className="mt-2 text-light-gray">
+                <div className="absolute -left-[25px] w-6 h-6 rounded-full bg-dark border-2 border-neon-cyan box-glow-cyan"></div>
+                <div className="glass-dark rounded-lg p-4 transform transition-all duration-300 group-hover:translate-x-2 group-hover:neon-border-cyan">
+                  <h4 className="text-lg font-semibold">Freelancer</h4>
+                  <span className="text-sm text-light-gray">2025 - Present</span>
+                  <p className="mt-2 text-sm text-light-gray">
                     Motivated by a passion for creating elegant web solutions, I provide comprehensive web development services, focusing on delivering value and quality to clients worldwide.
                   </p>
                 </div>
-                
-                {/* Connecting glow effect */}
-                <div className="absolute -left-[19px] top-[40px] w-0.5 h-8 bg-gradient-to-b from-neon-cyan to-neon-magenta opacity-80"></div>
               </div>
               
               {/* Timeline item 2 - Bachelor's */}
               <div className="mb-8 relative group">
-                <div className="absolute -left-[25px] w-10 h-10 flex items-center justify-center rounded-full bg-dark border-2 border-neon-magenta box-glow-magenta z-10">
-                  <GraduationCap className="w-5 h-5 text-neon-magenta" />
-                </div>
-                <div className="glass-dark rounded-lg p-4 transform transition-all duration-300 group-hover:translate-x-2 group-hover:neon-border-magenta group-hover:box-glow-magenta">
-                  <h4 className="text-lg font-semibold flex items-center">
-                    <span className="text-glow-magenta">Bachelor in Technology</span>
-                    <span className="ml-2 px-2 py-0.5 rounded bg-neon-magenta/10 text-xs text-neon-magenta">2021 - 2025</span>
-                  </h4>
-                  <span className="text-sm text-light-gray">Hyderabad</span>
-                  <p className="mt-2 text-light-gray">
+                <div className="absolute -left-[25px] w-6 h-6 rounded-full bg-dark border-2 border-neon-magenta box-glow-magenta"></div>
+                <div className="glass-dark rounded-lg p-4 transform transition-all duration-300 group-hover:translate-x-2 group-hover:neon-border-magenta">
+                  <h4 className="text-lg font-semibold">Bachelor in Technology</h4>
+                  <span className="text-sm text-light-gray">2021 - 2025, Hyderabad</span>
+                  <p className="mt-2 text-sm text-light-gray">
                     Completed my Computer Science Engineering degree with specialization in AI and ML, acquiring strong foundations in modern software development principles.
                   </p>
                 </div>
-                
-                {/* Connecting glow effect */}
-                <div className="absolute -left-[19px] top-[40px] w-0.5 h-8 bg-gradient-to-b from-neon-magenta to-neon-cyan opacity-80"></div>
               </div>
               
               {/* Timeline item 3 - Intermediate */}
               <div className="relative group">
-                <div className="absolute -left-[25px] w-10 h-10 flex items-center justify-center rounded-full bg-dark border-2 border-neon-cyan box-glow-cyan z-10">
-                  <Calendar className="w-5 h-5 text-neon-cyan" />
-                </div>
-                <div className="glass-dark rounded-lg p-4 transform transition-all duration-300 group-hover:translate-x-2 group-hover:neon-border-cyan group-hover:box-glow-cyan">
-                  <h4 className="text-lg font-semibold flex items-center">
-                    <span className="text-glow-cyan">Intermediate</span>
-                    <span className="ml-2 px-2 py-0.5 rounded bg-neon-cyan/10 text-xs text-neon-cyan">2019 - 2021</span>
-                  </h4>
-                  <span className="text-sm text-light-gray">Hyderabad</span>
-                  <p className="mt-2 text-light-gray">
+                <div className="absolute -left-[25px] w-6 h-6 rounded-full bg-dark border-2 border-neon-cyan box-glow-cyan"></div>
+                <div className="glass-dark rounded-lg p-4 transform transition-all duration-300 group-hover:translate-x-2 group-hover:neon-border-cyan">
+                  <h4 className="text-lg font-semibold">Intermediate</h4>
+                  <span className="text-sm text-light-gray">2019 - 2021, Hyderabad</span>
+                  <p className="mt-2 text-sm text-light-gray">
                     Completed my intermediate education with 92% in Physics, Chemistry, and Mathematics (PCM), developing a strong analytical foundation.
                   </p>
                 </div>
@@ -187,16 +111,6 @@ const AboutSection: React.FC = () => {
               <div className="absolute top-0 left-0 w-40 h-40 bg-neon-magenta/10 rounded-full blur-3xl animate-pulse-slow"></div>
               <div className="absolute bottom-0 right-0 w-32 h-32 bg-neon-cyan/10 rounded-full blur-3xl animate-pulse"></div>
             </div>
-            
-            {/* Add elegant shapes for additional effects */}
-            <ElegantShape
-              delay={0.4}
-              width={250}
-              height={70}
-              rotate={15}
-              gradient="from-neon-magenta/[0.05]"
-              className="left-[-5%] top-[10%]"
-            />
           </div>
         </div>
         

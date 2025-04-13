@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Code } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Navbar: React.FC = () => {
@@ -32,10 +32,6 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="w-8 h-8 mr-2 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan to-neon-magenta rounded-full opacity-50 animate-pulse"></div>
-              <Code className="w-full h-full text-white relative z-10" />
-            </div>
             <a href="#" className="text-xl sm:text-2xl font-bold text-glow-cyan">
               DevPortfolio
             </a>
@@ -54,12 +50,6 @@ const Navbar: React.FC = () => {
               className="text-light-gray hover:text-white hover-underline-animation"
             >
               About
-            </button>
-            <button 
-              onClick={() => scrollToSection('tech-stack')} 
-              className="text-light-gray hover:text-white hover-underline-animation"
-            >
-              Skills
             </button>
             <button 
               onClick={() => scrollToSection('projects')} 
@@ -110,12 +100,6 @@ const Navbar: React.FC = () => {
               className="text-light-gray hover:text-white py-2"
             >
               About
-            </button>
-            <button 
-              onClick={() => scrollToSection('tech-stack')} 
-              className="text-light-gray hover:text-white py-2"
-            >
-              Skills
             </button>
             <button 
               onClick={() => scrollToSection('projects')} 

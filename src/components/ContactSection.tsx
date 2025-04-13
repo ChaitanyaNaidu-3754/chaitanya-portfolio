@@ -1,9 +1,8 @@
 
 import React, { useState } from 'react';
 import ParticleBackground from './ParticleBackground';
-import { Github, Linkedin, Mail, CheckCircle, FileText } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, CheckCircle, FileText } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
-import { ElegantShape } from './ui/component';
 
 const ContactSection: React.FC = () => {
   const { toast } = useToast();
@@ -190,6 +189,16 @@ const ContactSection: React.FC = () => {
                 </a>
                 
                 <a 
+                  href="https://twitter.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center p-3 rounded-lg glass-dark hover:neon-border-cyan transition-all duration-300 group"
+                >
+                  <Twitter className="w-5 h-5 mr-3 text-light-gray group-hover:text-neon-cyan transition-colors" />
+                  <span className="text-light-gray group-hover:text-white transition-colors">Twitter</span>
+                </a>
+                
+                <a 
                   href="https://drive.google.com/file/d/1yHALtQHvSVYPB0QTY-zvnPqSGq3B_ott/view?usp=sharing" 
                   target="_blank" 
                   rel="noopener noreferrer" 
@@ -206,25 +215,6 @@ const ContactSection: React.FC = () => {
       
       {/* Particle background */}
       <ParticleBackground density={30} color="mixed" className="opacity-30" />
-      
-      {/* Add elegant shapes */}
-      <ElegantShape
-        delay={0.2}
-        width={400}
-        height={100}
-        rotate={15}
-        gradient="from-neon-cyan/[0.05]"
-        className="left-[5%] top-[10%]"
-      />
-      
-      <ElegantShape
-        delay={0.4}
-        width={350}
-        height={90}
-        rotate={-10}
-        gradient="from-neon-magenta/[0.05]"
-        className="right-[5%] bottom-[15%]"
-      />
     </section>
   );
 };
