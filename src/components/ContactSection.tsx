@@ -1,202 +1,128 @@
 
-import React, { useState } from 'react';
-import ParticleBackground from './ParticleBackground';
-import { Github, Linkedin, Mail, CheckCircle, FileText } from 'lucide-react';
-import { useToast } from "@/hooks/use-toast";
+import React from 'react';
+import { Mail, Github, Linkedin, FileText } from 'lucide-react';
 import { ElegantShape } from './ui/component';
 
 const ContactSection: React.FC = () => {
-  const { toast } = useToast();
-  const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value
-    });
-  };
-  
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Validate form (simple validation for demo)
-    if (!formState.name || !formState.email || !formState.message) {
-      toast({
-        title: "Error",
-        description: "Please fill out all fields",
-        variant: "destructive"
-      });
-      return;
-    }
-    
-    // For demo purposes we'll just show a success message
-    // In a real app, you would send this data to your backend
-    console.log("Form submitted:", formState);
-    setFormSubmitted(true);
-    
-    toast({
-      title: "Message sent!",
-      description: "Thank you for your message. I'll get back to you soon!",
-    });
-    
-    // Reset form
-    setFormState({
-      name: '',
-      email: '',
-      message: ''
-    });
-    
-    // Reset the submitted state after showing success animation
-    setTimeout(() => {
-      setFormSubmitted(false);
-    }, 3000);
-  };
+  const email = "chaitu.3754@gmail.com";
+  const resumeUrl = "https://drive.google.com/file/d/1yHALtQHvSVYPB0QTY-zvnPqSGq3B_ott/view?usp=sharing";
   
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 relative">
-      <div className="relative z-10 max-w-5xl mx-auto">
+    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 relative bg-dark">
+      <div className="max-w-7xl mx-auto">
         {/* Section heading */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-glow-cyan">
-            Let's Connect
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-glow-magenta">
+            Contact Me
           </h2>
-          <p className="text-light-gray max-w-xl mx-auto">
-            Have a project in mind or want to chat? Drop me a message and I'll get back to you!
+          <p className="text-light-gray max-w-2xl mx-auto">
+            Interested in working together? Let's connect and discuss your project!
           </p>
           <div className="w-24 h-1 bg-gradient-to-r from-neon-cyan to-neon-magenta mx-auto mt-6"></div>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        {/* Contact container */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Contact form */}
-          <div className="lg:col-span-3 glass p-8 rounded-xl">
-            <h3 className="text-2xl font-bold mb-6 text-glow-magenta">Send a Message</h3>
-            
-            <form onSubmit={handleSubmit}>
-              <div className="mb-6 relative">
-                <input
-                  type="text"
-                  name="name"
-                  value={formState.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-dark-light border border-dark-gray rounded-lg focus:neon-border-cyan focus:outline-none focus:box-glow-cyan transition-shadow"
-                  placeholder="Your Name"
-                  required
+          <div className="glass rounded-xl p-8 animate-fade-in-left">
+            <h3 className="text-xl font-bold mb-6 text-glow-cyan">Send Me a Message</h3>
+            <form className="space-y-4">
+              <div>
+                <label htmlFor="name" className="block text-sm text-light-gray mb-2">Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  className="w-full px-4 py-2 rounded-lg bg-dark-light border border-dark-gray text-white focus:outline-none focus:border-neon-cyan transition-colors"
+                  placeholder="Your name"
                 />
               </div>
-              
-              <div className="mb-6 relative">
-                <input
-                  type="email"
-                  name="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-dark-light border border-dark-gray rounded-lg focus:neon-border-cyan focus:outline-none focus:box-glow-cyan transition-shadow"
-                  placeholder="Your Email"
-                  required
+              <div>
+                <label htmlFor="email" className="block text-sm text-light-gray mb-2">Email</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  className="w-full px-4 py-2 rounded-lg bg-dark-light border border-dark-gray text-white focus:outline-none focus:border-neon-cyan transition-colors"
+                  placeholder="Your email"
                 />
               </div>
-              
-              <div className="mb-6 relative">
-                <textarea
-                  name="message"
-                  value={formState.message}
-                  onChange={handleChange}
-                  rows={5}
-                  className="w-full px-4 py-3 bg-dark-light border border-dark-gray rounded-lg focus:neon-border-cyan focus:outline-none focus:box-glow-cyan transition-shadow"
-                  placeholder="Your Message"
-                  required
+              <div>
+                <label htmlFor="message" className="block text-sm text-light-gray mb-2">Message</label>
+                <textarea 
+                  id="message" 
+                  rows={5} 
+                  className="w-full px-4 py-2 rounded-lg bg-dark-light border border-dark-gray text-white focus:outline-none focus:border-neon-cyan transition-colors resize-none"
+                  placeholder="Your message"
                 ></textarea>
               </div>
-              
-              <button
-                type="submit"
-                className="relative w-full py-3 px-6 rounded-lg glass-dark text-white neon-border-magenta hover:box-glow-magenta transition-all duration-300 overflow-hidden group"
+              <button 
+                type="submit" 
+                className="w-full py-3 rounded-lg bg-dark-light neon-border-cyan text-white hover:scale-105 transition-transform duration-300 animate-glow-pulse"
               >
-                <span className="relative z-10 flex items-center justify-center">
-                  {formSubmitted ? (
-                    <>
-                      <CheckCircle className="w-5 h-5 mr-2 animate-pulse" />
-                      Message Sent!
-                    </>
-                  ) : (
-                    "Send Message"
-                  )}
-                </span>
-                <span className="absolute inset-0 bg-gradient-to-r from-neon-cyan/20 to-neon-magenta/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+                Send Message
               </button>
             </form>
           </div>
           
           {/* Contact info */}
-          <div className="lg:col-span-2 flex flex-col">
-            <div className="glass p-8 rounded-xl mb-6 flex-1">
-              <h3 className="text-2xl font-bold mb-6 text-glow-cyan">Contact Info</h3>
-              
+          <div className="flex flex-col justify-between animate-fade-in-right">
+            <div className="glass rounded-xl p-8 mb-8">
+              <h3 className="text-xl font-bold mb-6 text-glow-cyan">Contact Information</h3>
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <Mail className="w-5 h-5 mr-3 text-neon-cyan" />
-                  <a href="mailto:chaitu.3754@gmail.com" className="text-light-gray hover-underline-animation">
-                    chaitu.3754@gmail.com
-                  </a>
+                  <div className="w-10 h-10 rounded-full glass-dark flex items-center justify-center mr-4">
+                    <Mail className="text-neon-magenta" size={18} />
+                  </div>
+                  <div>
+                    <p className="text-sm text-light-gray">Email</p>
+                    <a href={`mailto:${email}`} className="text-white hover:text-neon-cyan transition-colors">
+                      {email}
+                    </a>
+                  </div>
                 </div>
-                
-                <div className="flex items-center mt-4">
-                  <FileText className="w-5 h-5 mr-3 text-neon-magenta" />
-                  <a 
-                    href="https://drive.google.com/file/d/1yHALtQHvSVYPB0QTY-zvnPqSGq3B_ott/view?usp=sharing" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="text-light-gray hover-underline-animation"
-                  >
-                    View Resume
-                  </a>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 rounded-full glass-dark flex items-center justify-center mr-4">
+                    <FileText className="text-neon-cyan" size={18} />
+                  </div>
+                  <div>
+                    <p className="text-sm text-light-gray">Resume</p>
+                    <a 
+                      href={resumeUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-white hover:text-neon-cyan transition-colors"
+                    >
+                      View Resume
+                    </a>
+                  </div>
                 </div>
-                
-                <p className="text-light-gray mt-4">
-                  Currently accepting new projects and collaborations. 
-                  Feel free to reach out for any inquiries!
-                </p>
               </div>
             </div>
             
             {/* Social links */}
-            <div className="glass p-8 rounded-xl flex-1">
-              <h3 className="text-2xl font-bold mb-6 text-glow-cyan">Social Links</h3>
-              
-              <div className="flex flex-col space-y-4">
+            <div className="glass rounded-xl p-8">
+              <h3 className="text-xl font-bold mb-6 text-glow-cyan">Connect With Me</h3>
+              <div className="flex justify-center space-x-6">
                 <a 
                   href="https://github.com/ChaitanyaNaidu-3754" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="flex items-center p-3 rounded-lg glass-dark hover:neon-border-cyan transition-all duration-300 group"
+                  className="w-12 h-12 rounded-full glass-dark flex items-center justify-center hover:scale-110 transition-transform"
                 >
-                  <Github className="w-5 h-5 mr-3 text-light-gray group-hover:text-neon-cyan transition-colors" />
-                  <span className="text-light-gray group-hover:text-white transition-colors">GitHub</span>
+                  <Github className="text-white" size={20} />
                 </a>
-                
                 <a 
-                  href="https://linkedin.com" 
+                  href="#" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="flex items-center p-3 rounded-lg glass-dark hover:neon-border-magenta transition-all duration-300 group"
+                  className="w-12 h-12 rounded-full glass-dark flex items-center justify-center hover:scale-110 transition-transform"
                 >
-                  <Linkedin className="w-5 h-5 mr-3 text-light-gray group-hover:text-neon-magenta transition-colors" />
-                  <span className="text-light-gray group-hover:text-white transition-colors">LinkedIn</span>
+                  <Linkedin className="text-white" size={20} />
                 </a>
-                
                 <a 
-                  href="https://drive.google.com/file/d/1yHALtQHvSVYPB0QTY-zvnPqSGq3B_ott/view?usp=sharing" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="flex items-center p-3 rounded-lg glass-dark hover:neon-border-magenta transition-all duration-300 group"
+                  href={`mailto:${email}`}
+                  className="w-12 h-12 rounded-full glass-dark flex items-center justify-center hover:scale-110 transition-transform"
                 >
-                  <FileText className="w-5 h-5 mr-3 text-light-gray group-hover:text-neon-magenta transition-colors" />
-                  <span className="text-light-gray group-hover:text-white transition-colors">Resume</span>
+                  <Mail className="text-white" size={20} />
                 </a>
               </div>
             </div>
@@ -204,27 +130,30 @@ const ContactSection: React.FC = () => {
         </div>
       </div>
       
-      {/* Particle background */}
-      <ParticleBackground density={30} color="mixed" className="opacity-30" />
-      
-      {/* Add elegant shapes */}
-      <ElegantShape
-        delay={0.2}
-        width={400}
-        height={100}
-        rotate={15}
-        gradient="from-neon-cyan/[0.05]"
-        className="left-[5%] top-[10%]"
-      />
-      
-      <ElegantShape
-        delay={0.4}
-        width={350}
-        height={90}
-        rotate={-10}
-        gradient="from-neon-magenta/[0.05]"
-        className="right-[5%] bottom-[15%]"
-      />
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-neon-magenta/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-neon-cyan/5 rounded-full blur-3xl"></div>
+        
+        {/* Add elegant shapes */}
+        <ElegantShape
+          delay={0.3}
+          width={400}
+          height={100}
+          rotate={15}
+          gradient="from-neon-cyan/[0.05]"
+          className="right-[5%] top-[10%]"
+        />
+        
+        <ElegantShape
+          delay={0.5}
+          width={350}
+          height={90}
+          rotate={-10}
+          gradient="from-neon-magenta/[0.05]"
+          className="left-[5%] bottom-[10%]"
+        />
+      </div>
     </section>
   );
 };

@@ -2,10 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -36,13 +38,13 @@ const Navbar: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan to-neon-magenta rounded-full opacity-50 animate-pulse"></div>
               <Code className="w-full h-full text-white relative z-10" />
             </div>
-            <a href="#" className="text-xl sm:text-2xl font-bold text-glow-cyan">
+            <a href="#hero" className="text-xl sm:text-2xl font-bold text-glow-cyan">
               DevPortfolio
             </a>
           </div>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
             <button 
               onClick={() => scrollToSection('hero')} 
               className="text-light-gray hover:text-white hover-underline-animation"
@@ -87,7 +89,8 @@ const Navbar: React.FC = () => {
           <div className="md:hidden">
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-white"
+              className="text-white p-2"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -95,37 +98,37 @@ const Navbar: React.FC = () => {
         </div>
       </div>
       
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation - Slide down animation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden glass-dark mt-2 px-4 py-5 animate-fade-in">
+        <div className="md:hidden glass-dark mt-2 px-4 py-5 animate-fade-in overflow-hidden">
           <div className="flex flex-col space-y-4">
             <button 
               onClick={() => scrollToSection('hero')} 
-              className="text-light-gray hover:text-white py-2"
+              className="text-light-gray hover:text-white py-2 flex items-center"
             >
               Home
             </button>
             <button 
               onClick={() => scrollToSection('about')} 
-              className="text-light-gray hover:text-white py-2"
+              className="text-light-gray hover:text-white py-2 flex items-center"
             >
               About
             </button>
             <button 
               onClick={() => scrollToSection('tech-stack')} 
-              className="text-light-gray hover:text-white py-2"
+              className="text-light-gray hover:text-white py-2 flex items-center"
             >
               Skills
             </button>
             <button 
               onClick={() => scrollToSection('projects')} 
-              className="text-light-gray hover:text-white py-2"
+              className="text-light-gray hover:text-white py-2 flex items-center"
             >
               Projects
             </button>
             <button 
               onClick={() => scrollToSection('contact')} 
-              className="text-light-gray hover:text-white py-2"
+              className="text-light-gray hover:text-white py-2 flex items-center"
             >
               Contact Me
             </button>

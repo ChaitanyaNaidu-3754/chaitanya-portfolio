@@ -33,39 +33,34 @@ const ProjectsSection: React.FC = () => {
           targetRepoNames.includes(repo.name)
         );
         
-        // Data for the specific repositories with custom titles and images
+        // Data for the specific repositories with custom descriptions and images
         const projectData = [
           {
             repoName: 'ai_interview_prep',
-            title: 'AI Interview Coach',
             description: 'A smart interview preparation platform that uses AI to provide personalized feedback on responses.',
             image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
             tags: ['React', 'AI', 'Python']
           },
           {
             repoName: 'employee_management_system-reactjs',
-            title: 'Enterprise HR Dashboard',
             description: 'Comprehensive employee management system with analytics dashboard and performance tracking.',
             image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80',
             tags: ['React', 'Firebase', 'Chart.js']
           },
           {
             repoName: 'EDA-Exploratory-Data-Analysis-on-Dataset',
-            title: 'Data Explorer Pro',
             description: 'Interactive data analysis tool that visualizes complex datasets for easier insights extraction.',
             image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
             tags: ['Python', 'Pandas', 'Matplotlib']
           },
           {
             repoName: 'Task-Management-System-with-Flask-Backend',
-            title: 'TaskFlow Manager',
             description: 'Intuitive task management application with real-time updates and team collaboration features.',
             image: 'https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?auto=format&fit=crop&w=800&q=80',
             tags: ['Flask', 'Python', 'JavaScript']
           },
           {
             repoName: 'ShoppingCartApp-ReactJS',
-            title: 'ShopSmart E-Commerce',
             description: 'Modern e-commerce platform with seamless checkout experience and real-time inventory management.',
             image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=800&q=80',
             tags: ['React', 'Redux', 'NodeJS']
@@ -78,7 +73,7 @@ const ProjectsSection: React.FC = () => {
           const customData = projectData.find(p => p.repoName === repo.name);
           
           return {
-            title: customData?.title || repo.name,
+            title: repo.name, // Keep original GitHub repo name
             description: customData?.description || repo.description || `A project repository on GitHub: ${repo.name}`,
             image: customData?.image || 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80',
             tags: customData?.tags || repo.topics || ["GitHub", "Repository"],
@@ -93,38 +88,38 @@ const ProjectsSection: React.FC = () => {
         console.error('Error fetching GitHub repositories:', err);
         setError('Failed to load projects. Using fallback data.');
         
-        // Fallback data
+        // Fallback data with original repo names
         const fallbackProjects = [
           {
-            title: "AI Interview Coach",
+            title: "ai_interview_prep",
             description: "A smart interview preparation platform that uses AI to provide personalized feedback on responses.",
             image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
             tags: ["React", "AI", "Python"],
             githubUrl: "https://github.com/ChaitanyaNaidu-3754/ai_interview_prep"
           },
           {
-            title: "Enterprise HR Dashboard",
+            title: "employee_management_system-reactjs",
             description: "Comprehensive employee management system with analytics dashboard and performance tracking.",
             image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
             tags: ["React", "Firebase", "Chart.js"],
             githubUrl: "https://github.com/ChaitanyaNaidu-3754/employee_management_system-reactjs"
           },
           {
-            title: "Data Explorer Pro",
+            title: "EDA-Exploratory-Data-Analysis-on-Dataset",
             description: "Interactive data analysis tool that visualizes complex datasets for easier insights extraction.",
             image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
             tags: ["Python", "Pandas", "Matplotlib"],
             githubUrl: "https://github.com/ChaitanyaNaidu-3754/EDA-Exploratory-Data-Analysis-on-Dataset"
           },
           {
-            title: "TaskFlow Manager",
+            title: "Task-Management-System-with-Flask-Backend",
             description: "Intuitive task management application with real-time updates and team collaboration features.",
             image: "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?auto=format&fit=crop&w=800&q=80",
             tags: ["Flask", "Python", "JavaScript"],
             githubUrl: "https://github.com/ChaitanyaNaidu-3754/Task-Management-System-with-Flask-Backend"
           },
           {
-            title: "ShopSmart E-Commerce",
+            title: "ShoppingCartApp-ReactJS",
             description: "Modern e-commerce platform with seamless checkout experience and real-time inventory management.",
             image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=800&q=80",
             tags: ["React", "Redux", "NodeJS"],

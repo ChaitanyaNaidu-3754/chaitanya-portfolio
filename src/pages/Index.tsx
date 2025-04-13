@@ -7,6 +7,7 @@ import TechStack from '@/components/TechStack';
 import ProjectsSection from '@/components/ProjectsSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import JourneySection from '@/components/JourneySection';
 
 const Index: React.FC = () => {
   useEffect(() => {
@@ -20,6 +21,7 @@ const Index: React.FC = () => {
       <HeroSection />
       <AboutSection />
       <TechStack />
+      <JourneySection />
       <ProjectsSection />
       <ContactSection />
       <Footer />
