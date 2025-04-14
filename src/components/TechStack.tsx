@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Code, Database, Server, Globe, FileCode, Cloud, Github, Braces, PlusCircle, Package, Laptop, LayoutGrid } from 'lucide-react';
 
@@ -82,4 +83,32 @@ const TechStack: React.FC = () => {
           <path fill="currentColor" d="M32 24.795c-1.164.296-1.884.013-2.53-.957l-4.594-6.356-.664-.88-5.365 7.257c-.613.873-1.256 1.253-2.4.944l6.87-9.222-6.396-8.33c1.1-.214 1.86-.105 2.535.88l4.765 6.435 4.8-6.4c.615-.873 1.276-1.205 2.38-.883l-2.48 3.288-3.36 4.375c-.4.5-.345.842.023 1.325L32 24.795zM.008 15.427l.975-5.291c.252-1.32 1.023-1.826 2.19-1.826 1.118 0 1.96.425 1.737 1.904l-.984 5.136c-.246 1.347-.802 1.8-2.092 1.8-1.247 0-1.979-.526-1.828-1.723zm1.439-5.345c.058-.346-.023-.388-.36-.388h-.36l.145-.83h1.45c.627 0 .855.182.729.953l-.966 5.113c-.09.5.137.563.407.563h.376l-.155.955H1.306c-.527 0-.796-.156-.67-.815l.812-5.55zm4.452-1.458l-.818 4.64a39.96 39.96 0 0 0-.248 1.597c-.06.322.004.595.249.595.245 0 .454-.157.537-.49a32.5 32.5 0 0 0 .303-1.703l.8-4.64h1.428l-.924 5.197c-.209 1.188-.7 1.735-1.95 1.735-1.03 0-1.59-.434-1.432-1.4a82.76 82.76 0 0 1 .362-1.86l.8-3.673h1.894z"/>
         </svg>
       </div>, 
-      experience
+      experience: "2 years" 
+    }
+  ];
+
+  return (
+    <section id="tech-stack" className="py-20 px-4 bg-dark-light">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-glow-cyan">My Tech Stack</h2>
+        <p className="text-center text-light-gray mb-16 max-w-3xl mx-auto">
+          I specialize in modern web technologies. Here are the key technologies I work with:
+        </p>
+        
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
+          {techStack.map((tech, index) => (
+            <div key={index} className="bg-dark p-6 rounded-lg shadow-lg hover:shadow-cyan neon-border-faint transition-all duration-300 hover:scale-105">
+              <div className="flex flex-col items-center text-center">
+                {tech.icon}
+                <h3 className="mt-4 font-semibold text-lg">{tech.name}</h3>
+                <p className="text-light-gray text-sm mt-1">{tech.experience}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default TechStack;
