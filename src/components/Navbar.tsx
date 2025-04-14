@@ -32,6 +32,11 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center">
+            <img 
+              src="/lovable-uploads/083f97dc-2837-4821-8e50-59cf67f1bd50.png" 
+              alt="DevPortfolio Logo" 
+              className="h-8 w-8 mr-2"
+            />
             <a href="#" className="text-xl sm:text-2xl font-bold text-glow-cyan">
               DevPortfolio
             </a>
@@ -64,7 +69,7 @@ const Navbar: React.FC = () => {
               Contact Me
             </button>
             <a 
-              href="https://drive.google.com/file/d/1yHALtQHvSVYPB0QTY-zvnPqSGq3B_ott/view?usp=sharing" 
+              href="https://drive.google.com/file/d/1yHALtQHvSVYPB0QTY-zvnPqSGq3B_ott/view" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="px-5 py-2 rounded-lg bg-dark-light neon-border-magenta text-white hover:scale-105 transition-transform duration-300"
@@ -114,7 +119,7 @@ const Navbar: React.FC = () => {
               Contact Me
             </button>
             <a 
-              href="https://drive.google.com/file/d/1yHALtQHvSVYPB0QTY-zvnPqSGq3B_ott/view?usp=sharing" 
+              href="https://drive.google.com/file/d/1yHALtQHvSVYPB0QTY-zvnPqSGq3B_ott/view" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="px-5 py-2 rounded-lg bg-dark-light neon-border-magenta text-white text-center"

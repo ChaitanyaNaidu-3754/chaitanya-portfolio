@@ -7,11 +7,18 @@ const Footer: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  
   const navLinks = [
-    { name: "Home", href: "#" },
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" }
+    { name: "Home", href: "#hero", sectionId: "hero" },
+    { name: "About", href: "#about", sectionId: "about" },
+    { name: "Projects", href: "#projects", sectionId: "projects" },
+    { name: "Contact", href: "#contact", sectionId: "contact" }
   ];
   
   return (
@@ -27,13 +34,13 @@ const Footer: React.FC = () => {
           {/* Navigation */}
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-6 md:mb-0">
             {navLinks.map((link) => (
-              <a 
+              <button 
                 key={link.name} 
-                href={link.href} 
-                className="text-light-gray hover:text-white hover-underline-animation"
+                onClick={() => scrollToSection(link.sectionId)}
+                className="text-light-gray hover:text-white hover-underline-animation cursor-pointer"
               >
                 {link.name}
-              </a>
+              </button>
             ))}
           </div>
         </div>

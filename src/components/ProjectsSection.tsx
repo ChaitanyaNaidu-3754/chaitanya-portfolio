@@ -16,6 +16,42 @@ const ProjectsSection: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
+  // Repositories to display
+  const targetRepos = [
+    "ai_interview_prep", 
+    "employee_management_system-reactjs", 
+    "EDA-Exploratory-Data-Analysis-on-Dataset", 
+    "Task-Management-System-with-Flask-Backend", 
+    "ShoppingCartApp-ReactJS"
+  ];
+  
+  // Project images mapping
+  const projectImages = {
+    "ai_interview_prep": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80",
+    "employee_management_system-reactjs": "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=800&q=80",
+    "EDA-Exploratory-Data-Analysis-on-Dataset": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+    "Task-Management-System-with-Flask-Backend": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=800&q=80",
+    "ShoppingCartApp-ReactJS": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80"
+  };
+  
+  // Project descriptions mapping
+  const projectDescriptions = {
+    "ai_interview_prep": "AI-powered interview preparation platform with practice questions and feedback",
+    "employee_management_system-reactjs": "React-based employee management system with comprehensive HR features",
+    "EDA-Exploratory-Data-Analysis-on-Dataset": "Data analysis project exploring patterns and insights in various datasets",
+    "Task-Management-System-with-Flask-Backend": "Task management application with Flask backend and responsive frontend",
+    "ShoppingCartApp-ReactJS": "E-commerce shopping cart application built with React and state management"
+  };
+  
+  // Project tech tags mapping
+  const projectTags = {
+    "ai_interview_prep": ["Python", "Machine Learning", "React", "NLP"],
+    "employee_management_system-reactjs": ["React", "Node.js", "MongoDB", "Express"],
+    "EDA-Exploratory-Data-Analysis-on-Dataset": ["Python", "Pandas", "Matplotlib", "Data Science"],
+    "Task-Management-System-with-Flask-Backend": ["Flask", "Python", "SQLAlchemy", "React"],
+    "ShoppingCartApp-ReactJS": ["React", "Context API", "CSS", "JavaScript"]
+  };
+  
   useEffect(() => {
     const fetchGithubRepos = async () => {
       try {
@@ -26,72 +62,61 @@ const ProjectsSection: React.FC = () => {
         
         const repos: GithubRepo[] = await response.json();
         
-        // Get image placeholders for the repos
-        const images = [
-          "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800&q=80"
-        ];
+        // Filter repos by name
+        const filteredRepos = repos.filter(repo => 
+          targetRepos.includes(repo.name)
+        );
         
-        // Map repositories to project format
-        const projectData = repos.slice(0, 5).map((repo, index) => ({
-          title: repo.name,
-          description: repo.description || `A project repository on GitHub: ${repo.name}`,
-          image: images[index % images.length],
-          tags: repo.topics.length > 0 ? repo.topics : ["GitHub", "Repository"],
-          githubUrl: repo.html_url,
-          liveUrl: repo.homepage,
-        }));
+        // If we didn't find all the repos, use fallback data
+        if (filteredRepos.length < targetRepos.length) {
+          const projectData = targetRepos.map(repoName => {
+            const matchedRepo = repos.find(r => r.name === repoName);
+            
+            return {
+              title: repoName,
+              description: projectDescriptions[repoName as keyof typeof projectDescriptions] || 
+                           (matchedRepo?.description || `${repoName} - GitHub repository`),
+              image: projectImages[repoName as keyof typeof projectImages] || 
+                    "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
+              tags: projectTags[repoName as keyof typeof projectTags] || ["GitHub", "Repository"],
+              githubUrl: matchedRepo?.html_url || `https://github.com/ChaitanyaNaidu-3754/${repoName}`,
+              liveUrl: matchedRepo?.homepage || null,
+            };
+          });
+          
+          setProjects(projectData);
+        } else {
+          // Map repositories to project format
+          const projectData = filteredRepos.map(repo => ({
+            title: repo.name,
+            description: projectDescriptions[repo.name as keyof typeof projectDescriptions] || 
+                         (repo.description || `${repo.name} - GitHub repository`),
+            image: projectImages[repo.name as keyof typeof projectImages] || 
+                   "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
+            tags: projectTags[repo.name as keyof typeof projectTags] || 
+                  (repo.topics.length > 0 ? repo.topics : ["GitHub", "Repository"]),
+            githubUrl: repo.html_url,
+            liveUrl: repo.homepage,
+          }));
+          
+          setProjects(projectData);
+        }
         
-        setProjects(projectData);
         setIsLoading(false);
       } catch (err) {
         console.error('Error fetching GitHub repositories:', err);
         setError('Failed to load projects. Using fallback data.');
         
         // Fallback data
-        const fallbackProjects = [
-          {
-            title: "E-Commerce Platform",
-            description: "A fully responsive e-commerce platform built with React, Next.js, and Stripe integration for payments.",
-            image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
-            tags: ["React", "Next.js", "Stripe"],
-            githubUrl: "https://github.com/ChaitanyaNaidu-3754",
-            liveUrl: "https://example.com"
-          },
-          {
-            title: "Task Management App",
-            description: "A collaborative task management application with real-time updates using Firebase.",
-            image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
-            tags: ["React", "Firebase", "Tailwind"],
-            githubUrl: "https://github.com/ChaitanyaNaidu-3754"
-          },
-          {
-            title: "Weather Dashboard",
-            description: "Interactive weather dashboard with data visualization using Chart.js and OpenWeather API.",
-            image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
-            tags: ["JavaScript", "Chart.js", "API"],
-            githubUrl: "https://github.com/ChaitanyaNaidu-3754",
-            liveUrl: "https://example.com"
-          },
-          {
-            title: "AI Image Generator",
-            description: "Application that generates images based on text prompts using OpenAI's DALL-E API.",
-            image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=800&q=80",
-            tags: ["React", "OpenAI", "Node.js"],
-            githubUrl: "https://github.com/ChaitanyaNaidu-3754"
-          },
-          {
-            title: "Mobile Fitness App",
-            description: "Cross-platform fitness tracking application built with Flutter and Firebase.",
-            image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
-            tags: ["Flutter", "Firebase", "Dart"],
-            githubUrl: "https://github.com/ChaitanyaNaidu-3754"
-          }
-        ];
+        const fallbackProjects = targetRepos.map(repoName => ({
+          title: repoName,
+          description: projectDescriptions[repoName as keyof typeof projectDescriptions] || 
+                       `${repoName} - GitHub repository`,
+          image: projectImages[repoName as keyof typeof projectImages] || 
+                 "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
+          tags: projectTags[repoName as keyof typeof projectTags] || ["GitHub", "Repository"],
+          githubUrl: `https://github.com/ChaitanyaNaidu-3754/${repoName}`,
+        }));
         
         setProjects(fallbackProjects);
         setIsLoading(false);

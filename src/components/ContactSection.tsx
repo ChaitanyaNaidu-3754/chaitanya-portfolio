@@ -9,9 +9,11 @@ const ContactSection: React.FC = () => {
   const [formState, setFormState] = useState({
     name: '',
     email: '',
+    subject: '',
     message: ''
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState({
@@ -20,40 +22,74 @@ const ContactSection: React.FC = () => {
     });
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate form (simple validation for demo)
+    // Validate form
     if (!formState.name || !formState.email || !formState.message) {
       toast({
         title: "Error",
-        description: "Please fill out all fields",
+        description: "Please fill out all required fields",
         variant: "destructive"
       });
       return;
     }
     
-    // For demo purposes we'll just show a success message
-    // In a real app, you would send this data to your backend
-    console.log("Form submitted:", formState);
-    setFormSubmitted(true);
+    // Simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formState.email)) {
+      toast({
+        title: "Error",
+        description: "Please enter a valid email address",
+        variant: "destructive"
+      });
+      return;
+    }
     
-    toast({
-      title: "Message sent!",
-      description: "Thank you for your message. I'll get back to you soon!",
-    });
+    setIsSubmitting(true);
     
-    // Reset form
-    setFormState({
-      name: '',
-      email: '',
-      message: ''
-    });
-    
-    // Reset the submitted state after showing success animation
-    setTimeout(() => {
-      setFormSubmitted(false);
-    }, 3000);
+    try {
+      // Create email form submission
+      // For a real implementation, you'd need a backend service or email API
+      // Here we're simulating a successful submission
+      
+      const recipient = "chaitu.3754@gmail.com";
+      const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(formState.subject || 'Contact Form Submission')}&body=${encodeURIComponent(`Name: ${formState.name}\nEmail: ${formState.email}\n\n${formState.message}`)}`;
+      
+      // Open the user's email client
+      window.open(mailtoLink, '_blank');
+      
+      // For demo purposes we'll show a success message
+      console.log("Form submitted:", formState);
+      setFormSubmitted(true);
+      
+      toast({
+        title: "Message sent!",
+        description: "Thank you for your message. I'll get back to you soon!",
+      });
+      
+      // Reset form
+      setFormState({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+      
+      // Reset the submitted state after showing success animation
+      setTimeout(() => {
+        setFormSubmitted(false);
+      }, 3000);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive"
+      });
+      console.error("Form submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   return (
@@ -101,6 +137,17 @@ const ContactSection: React.FC = () => {
               </div>
               
               <div className="mb-6 relative">
+                <input
+                  type="text"
+                  name="subject"
+                  value={formState.subject}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-dark-light border border-dark-gray rounded-lg focus:neon-border-cyan focus:outline-none focus:box-glow-cyan transition-shadow"
+                  placeholder="Subject"
+                />
+              </div>
+              
+              <div className="mb-6 relative">
                 <textarea
                   name="message"
                   value={formState.message}
@@ -114,10 +161,13 @@ const ContactSection: React.FC = () => {
               
               <button
                 type="submit"
-                className="relative w-full py-3 px-6 rounded-lg glass-dark text-white neon-border-magenta hover:box-glow-magenta transition-all duration-300 overflow-hidden group"
+                disabled={isSubmitting}
+                className="relative w-full py-3 px-6 rounded-lg glass-dark text-white neon-border-magenta hover:box-glow-magenta transition-all duration-300 overflow-hidden group disabled:opacity-70"
               >
                 <span className="relative z-10 flex items-center justify-center">
-                  {formSubmitted ? (
+                  {isSubmitting ? (
+                    "Sending..."
+                  ) : formSubmitted ? (
                     <>
                       <CheckCircle className="w-5 h-5 mr-2 animate-pulse" />
                       Message Sent!
@@ -147,7 +197,7 @@ const ContactSection: React.FC = () => {
                 <div className="flex items-center mt-4">
                   <FileText className="w-5 h-5 mr-3 text-neon-magenta" />
                   <a 
-                    href="https://drive.google.com/file/d/1yHALtQHvSVYPB0QTY-zvnPqSGq3B_ott/view?usp=sharing" 
+                    href="https://drive.google.com/file/d/1yHALtQHvSVYPB0QTY-zvnPqSGq3B_ott/view" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="text-light-gray hover-underline-animation"
@@ -179,7 +229,7 @@ const ContactSection: React.FC = () => {
                 </a>
                 
                 <a 
-                  href="https://linkedin.com" 
+                  href="https://www.linkedin.com/in/chaitanya-naidu-715362225/" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="flex items-center p-3 rounded-lg glass-dark hover:neon-border-magenta transition-all duration-300 group"
@@ -189,17 +239,17 @@ const ContactSection: React.FC = () => {
                 </a>
                 
                 <a 
-                  href="https://twitter.com" 
+                  href="mailto:chaitu.3754@gmail.com" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="flex items-center p-3 rounded-lg glass-dark hover:neon-border-cyan transition-all duration-300 group"
                 >
-                  <Twitter className="w-5 h-5 mr-3 text-light-gray group-hover:text-neon-cyan transition-colors" />
-                  <span className="text-light-gray group-hover:text-white transition-colors">Twitter</span>
+                  <Mail className="w-5 h-5 mr-3 text-light-gray group-hover:text-neon-cyan transition-colors" />
+                  <span className="text-light-gray group-hover:text-white transition-colors">Email</span>
                 </a>
                 
                 <a 
-                  href="https://drive.google.com/file/d/1yHALtQHvSVYPB0QTY-zvnPqSGq3B_ott/view?usp=sharing" 
+                  href="https://drive.google.com/file/d/1yHALtQHvSVYPB0QTY-zvnPqSGq3B_ott/view" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="flex items-center p-3 rounded-lg glass-dark hover:neon-border-magenta transition-all duration-300 group"
