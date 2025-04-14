@@ -120,7 +120,7 @@ const HeroSection: React.FC = () => {
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-bold mb-4 text-glow-cyan">
-          <TypewriterText text="Full-Stack Developer" delay={100} />
+          <TypewriterText texts={["Full-Stack Developer"]} delay={100} />
         </h1>
         <p className="text-xl md:text-2xl mb-8 text-light-gray">
           Building modern web applications with cutting-edge technologies
