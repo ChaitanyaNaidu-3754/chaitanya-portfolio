@@ -1,9 +1,8 @@
+
 import React, { useRef, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import TypewriterText from './TypewriterText';
 import { ChevronDown } from 'lucide-react';
-import { FaHtml5, FaCss3Alt, FaReact, FaNodeJs, FaGitAlt } from 'react-icons/fa';
-import { SiJavascript, SiTypescript, SiMongodb, SiTailwindcss, SiFirebase } from 'react-icons/si';
 
 const HeroSection: React.FC = () => {
   const techIconsRef = useRef<HTMLDivElement>(null);
@@ -128,3 +127,72 @@ const HeroSection: React.FC = () => {
         iconElement.remove();
         
         if (techIconsRef.current) {
+          // Create a new icon to replace the removed one
+          const newIconElement = document.createElement('div');
+          newIconElement.className = `absolute opacity-0 transition-all duration-500 ease-in-out`;
+          newIconElement.style.left = `${Math.random() * 100}%`;
+          newIconElement.style.top = `-50px`;
+          
+          // Set the SVG icon
+          newIconElement.innerHTML = iconData.svg;
+          
+          // Apply animation
+          setTimeout(() => {
+            newIconElement.style.opacity = '0.7';
+            newIconElement.style.transform = `translateY(${Math.random() * 1000 + 500}px) rotate(${Math.random() * 360}deg)`;
+            newIconElement.style.transition = `transform ${10 + Math.random() * 20}s linear, opacity 1s ease-in`;
+          }, 10);
+          
+          container.appendChild(newIconElement);
+          
+          // And repeat the process
+          setTimeout(() => {
+            newIconElement.remove();
+          }, 15000 + Math.random() * 5000);
+        }
+      }, 15000 + Math.random() * 5000);
+    });
+  }, []);
+
+  return (
+    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-dark-blue to-dark-purple opacity-80">
+      </div>
+      
+      <div ref={techIconsRef} className="absolute inset-0 overflow-hidden pointer-events-none">
+      </div>
+      
+      <div className="relative z-10 max-w-4xl mx-auto">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 text-glow-cyan">
+          <TypewriterText texts={["Hi, I'm Chaitanya", "Full-Stack Developer", "Web Developer", "React Developer"]} delay={3000} />
+        </h1>
+        <p className="text-xl md:text-2xl mb-8 text-light-gray">
+          Building modern web applications with cutting-edge technologies
+        </p>
+        
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <a 
+            href="#projects" 
+            className="px-6 py-3 rounded-lg bg-dark-light neon-border-cyan text-white hover:scale-105 transition-transform duration-300"
+          >
+            View My Work
+          </a>
+          <a 
+            href="#contact" 
+            className="px-6 py-3 rounded-lg bg-dark-light neon-border-magenta text-white hover:scale-105 transition-transform duration-300"
+          >
+            Contact Me
+          </a>
+        </div>
+      </div>
+      
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <a href="#about" className="text-light-gray hover:text-white transition-colors">
+          <ChevronDown size={32} />
+        </a>
+      </div>
+    </section>
+  );
+};
+
+export default HeroSection;
