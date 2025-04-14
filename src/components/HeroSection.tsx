@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import TypewriterText from './TypewriterText';
