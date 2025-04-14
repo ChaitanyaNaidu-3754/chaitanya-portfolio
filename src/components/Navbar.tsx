@@ -37,7 +37,13 @@ const Navbar: React.FC = () => {
               alt="DevPortfolio Logo" 
               className="h-8 w-8 mr-2"
             />
-            <a href="#" className="text-xl sm:text-2xl font-bold text-glow-cyan">
+            <a 
+              href="#" 
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection('hero');
+              }}
+              className="text-xl sm:text-2xl font-bold text-glow-cyan">
               DevPortfolio
             </a>
           </div>
