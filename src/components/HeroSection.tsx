@@ -102,92 +102,175 @@ const HeroSection: React.FC = () => {
     // Clear container first
     container.innerHTML = '';
 
-    // Create falling tech icons with animation
-    icons.forEach((iconData, index) => {
-      const iconElement = document.createElement('div');
-      iconElement.className = `absolute opacity-0 transition-all duration-500 ease-in-out`;
-      iconElement.style.left = `${Math.random() * 100}%`;
-      iconElement.style.top = `-50px`;
-      iconElement.style.animationDelay = `${iconData.delay}ms`;
-      
-      // Set the SVG icon
-      iconElement.innerHTML = iconData.svg;
-      
-      // Apply animation to make it fall
-      setTimeout(() => {
-        iconElement.style.opacity = '0.7';
-        iconElement.style.transform = `translateY(${Math.random() * 1000 + 500}px) rotate(${Math.random() * 360}deg)`;
-        iconElement.style.transition = `transform ${10 + Math.random() * 20}s linear, opacity 1s ease-in`;
-      }, iconData.delay);
-      
-      container.appendChild(iconElement);
-      
-      // Remove after animation completes and add a new one
-      setTimeout(() => {
-        iconElement.remove();
-        
-        if (techIconsRef.current) {
-          // Create a new icon to replace the removed one
-          const newIconElement = document.createElement('div');
-          newIconElement.className = `absolute opacity-0 transition-all duration-500 ease-in-out`;
-          newIconElement.style.left = `${Math.random() * 100}%`;
-          newIconElement.style.top = `-50px`;
+    // Create more falling tech icons with animation (increased quantity)
+    const createIcons = () => {
+      for (let i = 0; i < 5; i++) { // Increased from original
+        icons.forEach((iconData, index) => {
+          const iconElement = document.createElement('div');
+          iconElement.className = `absolute opacity-0 transition-all duration-500 ease-in-out`;
+          
+          // Randomize position, but focus more on the right side for profile photo background
+          const leftPosition = Math.random() * 100;
+          iconElement.style.left = `${leftPosition}%`;
+          iconElement.style.top = `-50px`;
+          iconElement.style.animationDelay = `${iconData.delay + Math.random() * 2000}ms`;
           
           // Set the SVG icon
-          newIconElement.innerHTML = iconData.svg;
+          iconElement.innerHTML = iconData.svg;
           
-          // Apply animation
+          // Apply animation to make it fall
           setTimeout(() => {
-            newIconElement.style.opacity = '0.7';
-            newIconElement.style.transform = `translateY(${Math.random() * 1000 + 500}px) rotate(${Math.random() * 360}deg)`;
-            newIconElement.style.transition = `transform ${10 + Math.random() * 20}s linear, opacity 1s ease-in`;
-          }, 10);
+            iconElement.style.opacity = '0.7';
+            iconElement.style.transform = `translateY(${Math.random() * 1000 + 500}px) rotate(${Math.random() * 360}deg)`;
+            iconElement.style.transition = `transform ${10 + Math.random() * 20}s linear, opacity 1s ease-in`;
+          }, iconData.delay + Math.random() * 1000);
           
-          container.appendChild(newIconElement);
+          container.appendChild(iconElement);
           
-          // And repeat the process
+          // Remove after animation completes and add a new one
           setTimeout(() => {
-            newIconElement.remove();
+            iconElement.remove();
+            
+            // Create a new icon to replace the removed one
+            const newIconElement = document.createElement('div');
+            newIconElement.className = `absolute opacity-0 transition-all duration-500 ease-in-out`;
+            
+            // Randomize position, focusing more on the right side
+            const newLeftPosition = Math.random() * 100;
+            newIconElement.style.left = `${newLeftPosition}%`;
+            newIconElement.style.top = `-50px`;
+            
+            // Set the SVG icon
+            newIconElement.innerHTML = iconData.svg;
+            
+            // Apply animation
+            setTimeout(() => {
+              newIconElement.style.opacity = '0.7';
+              newIconElement.style.transform = `translateY(${Math.random() * 1000 + 500}px) rotate(${Math.random() * 360}deg)`;
+              newIconElement.style.transition = `transform ${10 + Math.random() * 20}s linear, opacity 1s ease-in`;
+            }, 10);
+            
+            container.appendChild(newIconElement);
+            
+            // And continue the loop
+            setTimeout(() => {
+              newIconElement.remove();
+              
+              // This ensures the animation continues in a loop
+              if (techIconsRef.current) {
+                const loopIconElement = document.createElement('div');
+                loopIconElement.className = `absolute opacity-0 transition-all duration-500 ease-in-out`;
+                loopIconElement.style.left = `${Math.random() * 100}%`;
+                loopIconElement.style.top = `-50px`;
+                loopIconElement.innerHTML = iconData.svg;
+                
+                setTimeout(() => {
+                  loopIconElement.style.opacity = '0.7';
+                  loopIconElement.style.transform = `translateY(${Math.random() * 1000 + 500}px) rotate(${Math.random() * 360}deg)`;
+                  loopIconElement.style.transition = `transform ${10 + Math.random() * 20}s linear, opacity 1s ease-in`;
+                }, 10);
+                
+                container.appendChild(loopIconElement);
+                
+                // Continue the loop
+                setTimeout(() => {
+                  loopIconElement.remove();
+                }, 15000 + Math.random() * 5000);
+              }
+            }, 15000 + Math.random() * 5000);
           }, 15000 + Math.random() * 5000);
-        }
-      }, 15000 + Math.random() * 5000);
-    });
+        });
+      }
+    };
+
+    // Initial creation
+    createIcons();
+    
+    // Set up continuous loop of icon creation
+    const loopInterval = setInterval(() => {
+      if (techIconsRef.current) {
+        createIcons();
+      } else {
+        clearInterval(loopInterval);
+      }
+    }, 5000);
+    
+    return () => {
+      clearInterval(loopInterval);
+    };
   }, []);
 
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-dark-blue to-dark-purple opacity-80">
       </div>
       
       <div ref={techIconsRef} className="absolute inset-0 overflow-hidden pointer-events-none">
       </div>
       
-      <div className="relative z-10 max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4 text-glow-cyan">
-          <TypewriterText texts={["Hi, I'm Chaitanya", "Full-Stack Developer", "Web Developer", "React Developer"]} delay={3000} />
-        </h1>
-        <p className="text-xl md:text-2xl mb-8 text-light-gray">
-          Building modern web applications with cutting-edge technologies
-        </p>
+      <div className="relative z-10 max-w-7xl w-full mx-auto flex flex-col md:flex-row items-center justify-between">
+        {/* Left side - Text content */}
+        <div className="w-full md:w-1/2 text-left mb-12 md:mb-0">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-glow-cyan">
+            <TypewriterText texts={["Hi, I'm Chaitanya", "Full-Stack Developer", "Web Developer", "React Expert"]} delay={3000} />
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 text-light-gray">
+            Crafting innovative web solutions with modern technologies for exceptional user experiences.
+          </p>
+          
+          <div className="flex flex-wrap gap-4 mb-12">
+            <a 
+              href="#projects" 
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection('projects');
+              }}
+              className="px-6 py-3 rounded-lg bg-dark-light neon-border-cyan text-white hover:scale-105 transition-transform duration-300"
+            >
+              My Projects
+            </a>
+            <a 
+              href="#contact" 
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection('contact');
+              }}
+              className="px-6 py-3 rounded-lg bg-dark-light neon-border-magenta text-white hover:scale-105 transition-transform duration-300 hover:shadow-[0_0_15px_rgba(255,0,255,0.7)] animate-glow-pulse-magenta"
+            >
+              Hire Me
+            </a>
+          </div>
+        </div>
         
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          <a 
-            href="#projects" 
-            className="px-6 py-3 rounded-lg bg-dark-light neon-border-cyan text-white hover:scale-105 transition-transform duration-300"
-          >
-            View My Work
-          </a>
-          <a 
-            href="#contact" 
-            className="px-6 py-3 rounded-lg bg-dark-light neon-border-magenta text-white hover:scale-105 transition-transform duration-300"
-          >
-            Contact Me
-          </a>
+        {/* Right side - Profile Photo */}
+        <div className="w-full md:w-2/5 flex justify-center md:justify-end">
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan to-neon-magenta opacity-50 rounded-2xl filter blur-xl transform scale-105 animate-glow-pulse"></div>
+            <img 
+              src="/lovable-uploads/1419b91d-684d-4b94-9628-46f1bf400661.png" 
+              alt="Chaitanya Naidu" 
+              className="relative z-10 w-64 h-64 object-cover object-center rounded-2xl border-2 border-white/20 shadow-lg"
+            />
+          </div>
         </div>
       </div>
       
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <a href="#about" className="text-light-gray hover:text-white transition-colors">
+        <a 
+          href="#about" 
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToSection('about');
+          }}
+          className="text-light-gray hover:text-white transition-colors"
+        >
           <ChevronDown size={32} />
         </a>
       </div>
