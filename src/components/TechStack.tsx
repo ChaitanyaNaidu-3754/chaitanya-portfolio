@@ -1,10 +1,7 @@
 
-import React, { useRef, useEffect } from 'react';
-import { Code, Database, Server, Globe, FileCode, Cloud, Github, Braces, PlusCircle, Package, Laptop, LayoutGrid } from 'lucide-react';
+import React from 'react';
 
 const TechStack: React.FC = () => {
-  const carouselRef = useRef<HTMLDivElement>(null);
-  
   const techStack = [
     { 
       name: "HTML", 
@@ -84,6 +81,36 @@ const TechStack: React.FC = () => {
         </svg>
       </div>, 
       experience: "2 years" 
+    },
+    { 
+      name: "Tailwind CSS", 
+      icon: <div className="flex items-center justify-center w-12 h-12 text-[#38B2AC]">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-12 h-12">
+          <path fill="currentColor" d="M9 13.7q1.4-5.6 7-5.6c5.6 0 6.3 4.2 9.1 4.9q2.8.7 4.9-2.1-1.4 5.6-7 5.6c-5.6 0-6.3-4.2-9.1-4.9q-2.8-.7-4.9 2.1zm-7 8.4q1.4-5.6 7-5.6c5.6 0 6.3 4.2 9.1 4.9q2.8.7 4.9-2.1-1.4 5.6-7 5.6c-5.6 0-6.3-4.2-9.1-4.9q-2.8-.7-4.9 2.1z"/>
+        </svg>
+      </div>, 
+      experience: "3 years" 
+    },
+    { 
+      name: "Firebase", 
+      icon: <div className="flex items-center justify-center w-12 h-12 text-[#FFCA28]">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-12 h-12">
+          <path fill="currentColor" d="M19.62 11.558l-3.203 2.98-2.972-5.995 1.538-3.448c.4-.7 1.024-.692 1.414 0z"/>
+          <path fill="currentColor" d="M13.445 8.543l2.972 5.995-11.97 11.135z"/>
+          <path fill="currentColor" d="M23.123 7.003c.572-.55 1.164-.362 1.315.417l3.116 18.105-10.328 6.2c-.36.2-1.32.286-1.32.286s-.874-.104-1.207-.3L4.447 25.673z"/>
+          <path fill="currentColor" d="M13.445 8.543l-8.997 17.13L8.455.638c.148-.78.592-.855.988-.167z"/>
+        </svg>
+      </div>,
+      experience: "2 years" 
+    },
+    { 
+      name: "Git", 
+      icon: <div className="flex items-center justify-center w-12 h-12 text-[#F05032]">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-12 h-12">
+          <path fill="currentColor" d="M31.396 14.575L17.425.604a2.06 2.06 0 0 0-2.914 0l-2.9 2.9 3.68 3.68c.856-.3 1.836-.095 2.518.587a2.45 2.45 0 0 1 .581 2.533l3.547 3.547c.858-.296 1.848-.105 2.533.582a2.45 2.45 0 1 1-3.469 3.468c-.72-.72-.898-1.78-.534-2.667l-3.308-3.308v8.705a2.5 2.5 0 0 1 .65.464 2.45 2.45 0 1 1-3.468 3.468 2.45 2.45 0 0 1 0-3.468c.237-.236.5-.415.803-.535v-8.786c-.292-.12-.566-.297-.803-.535a2.45 2.45 0 0 1-.528-2.681l-3.63-3.628-9.58 9.57a2.06 2.06 0 0 0 0 2.915l13.972 13.97a2.06 2.06 0 0 0 2.914 0L31.396 17.5a2.06 2.06 0 0 0 0-2.915"/>
+        </svg>
+      </div>,
+      experience: "3 years" 
     }
   ];
 
