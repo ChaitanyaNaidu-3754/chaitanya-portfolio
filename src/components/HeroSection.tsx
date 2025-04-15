@@ -1,4 +1,3 @@
-
 import React from 'react';
 import TypewriterText from './TypewriterText';
 import { ChevronDown } from 'lucide-react';
@@ -19,8 +18,6 @@ const HeroSection: React.FC = () => {
     <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
       {/* Background Effects */}
       <BackgroundPaths />
-      <div className="absolute inset-0 bg-gradient-to-b from-dark to-dark-medium/90">
-      </div>
       
       <div className="relative z-10 max-w-7xl w-full mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Left side - Text content */}
@@ -62,7 +59,7 @@ const HeroSection: React.FC = () => {
         </div>
         
         {/* Right side - Profile Photo with tech icons */}
-        <div className="w-full md:w-2/5 flex justify-center md:justify-end relative ml-8">
+        <div className="w-full md:w-2/5 flex justify-center relative">
           <div className="relative">
             {/* Glowing background effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan to-neon-magenta opacity-50 rounded-2xl filter blur-xl transform scale-105 animate-glow-pulse"></div>
@@ -101,4 +98,3 @@ const HeroSection: React.FC = () => {
 };
 
 export default HeroSection;
-
