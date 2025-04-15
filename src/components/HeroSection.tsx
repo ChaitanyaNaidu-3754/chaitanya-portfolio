@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
-import { createRoot } from 'react-dom/client';
 import TypewriterText from './TypewriterText';
 import { ChevronDown } from 'lucide-react';
+import BlobAnimation from './BlobAnimation';
 
 const HeroSection: React.FC = () => {
   const techIconsRef = useRef<HTMLDivElement>(null);
@@ -11,6 +11,8 @@ const HeroSection: React.FC = () => {
     if (!techIconsRef.current) return;
     
     const container = techIconsRef.current;
+    
+    // Tech icons animation
     const icons = [
       { 
         name: "HTML", 
@@ -211,7 +213,7 @@ const HeroSection: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-dark-blue to-dark-purple opacity-80">
       </div>
       
-      <div ref={techIconsRef} className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div ref={techIconsRef} className="absolute right-0 w-1/2 inset-y-0 overflow-hidden pointer-events-none">
       </div>
       
       <div className="relative z-10 max-w-7xl w-full mx-auto flex flex-col md:flex-row items-center justify-between">
@@ -273,6 +275,8 @@ const HeroSection: React.FC = () => {
           <ChevronDown size={32} />
         </a>
       </div>
+
+      <BlobAnimation />
     </section>
   );
 };
