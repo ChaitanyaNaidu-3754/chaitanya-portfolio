@@ -1,10 +1,11 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import TypewriterText from './TypewriterText';
 import { ChevronDown } from 'lucide-react';
 import BlobAnimation from './BlobAnimation';
 import FallingTechIcons from './FallingTechIcons';
 import { Button } from './ui/button';
+import { BackgroundPaths } from './ui/background-paths';
 
 const HeroSection: React.FC = () => {
   const scrollToSection = (sectionId: string) => {
@@ -16,10 +17,12 @@ const HeroSection: React.FC = () => {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-dark to-dark-medium opacity-90">
+      {/* Background Effects */}
+      <BackgroundPaths />
+      <div className="absolute inset-0 bg-gradient-to-b from-dark to-dark-medium/90">
       </div>
       
-      <div className="relative z-10 max-w-7xl w-full mx-auto flex flex-col md:flex-row items-center justify-between">
+      <div className="relative z-10 max-w-7xl w-full mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Left side - Text content */}
         <div className="w-full md:w-1/2 text-left mb-12 md:mb-0 animate-fade-in">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 text-glow-cyan">
@@ -43,14 +46,14 @@ const HeroSection: React.FC = () => {
           <div className="flex flex-wrap gap-4 mb-12">
             <Button 
               variant="outline"
-              className="px-6 py-6 rounded-lg bg-dark-medium border-neon-magenta text-white hover:scale-105 transition-transform duration-300 hover:shadow-[0_0_15px_rgba(255,0,255,0.7)] animate-glow-pulse-magenta"
+              className="px-6 py-6 rounded-lg bg-dark-medium border-neon-magenta text-white hover:scale-105 transition-transform duration-300 hover:shadow-[0_0_15px_rgba(255,0,255,0.7)] animate-bounce-subtle"
               onClick={() => scrollToSection('contact')}
             >
               Hire Me
             </Button>
             <Button 
               variant="outline"
-              className="px-6 py-6 rounded-lg bg-dark-medium border-neon-cyan text-white hover:scale-105 transition-transform duration-300"
+              className="px-6 py-6 rounded-lg bg-dark-medium border-neon-cyan text-white hover:scale-110 transition-transform duration-300"
               onClick={() => scrollToSection('projects')}
             >
               View Projects
@@ -59,7 +62,7 @@ const HeroSection: React.FC = () => {
         </div>
         
         {/* Right side - Profile Photo with tech icons */}
-        <div className="w-full md:w-2/5 flex justify-center md:justify-end relative">
+        <div className="w-full md:w-2/5 flex justify-center md:justify-end relative ml-8">
           <div className="relative">
             {/* Glowing background effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan to-neon-magenta opacity-50 rounded-2xl filter blur-xl transform scale-105 animate-glow-pulse"></div>
@@ -68,7 +71,7 @@ const HeroSection: React.FC = () => {
             <img 
               src="/lovable-uploads/04e3574a-9b90-4966-aa3e-ad040f1aa8f4.png"
               alt="Chaitanya Naidu" 
-              className="relative z-10 w-64 h-64 object-cover object-center rounded-2xl border-2 border-white/20 shadow-lg"
+              className="relative z-10 w-72 h-72 object-contain object-center rounded-2xl border-2 border-white/20 shadow-lg"
             />
             
             {/* Falling tech icons container - positioned behind the profile image */}
@@ -98,3 +101,4 @@ const HeroSection: React.FC = () => {
 };
 
 export default HeroSection;
+
