@@ -5,7 +5,7 @@ import { ChevronDown } from 'lucide-react';
 import BlobAnimation from './BlobAnimation';
 import FallingTechIcons from './FallingTechIcons';
 import { Button } from './ui/button';
-import { BackgroundPaths } from './ui/background-paths';
+import { motion } from 'framer-motion';
 
 const HeroSection: React.FC = () => {
   const scrollToSection = (sectionId: string) => {
@@ -17,12 +17,22 @@ const HeroSection: React.FC = () => {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
-      {/* Background Effects */}
-      <BackgroundPaths />
+      {/* Cool Gradient Background Animation */}
+      <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark to-dark-medium">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,255,0.1),transparent_50%)] animate-[pulse_4s_ease-in-out_infinite]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,0,255,0.1),transparent_50%)] animate-[pulse_4s_ease-in-out_infinite_1s]"></div>
+        </div>
+      </div>
       
       <div className="relative z-10 max-w-7xl w-full mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Left side - Text content */}
-        <div className="w-full md:w-1/2 text-left mb-12 md:mb-0 animate-fade-in">
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="w-full md:w-1/2 text-left mb-12 md:mb-0"
+        >
           <h1 className="text-4xl md:text-6xl font-bold mb-4 text-glow-cyan">
             Hi, I'm Chaitanya Naidu
           </h1>
@@ -42,25 +52,40 @@ const HeroSection: React.FC = () => {
           </p>
           
           <div className="flex flex-wrap gap-4 mb-12">
-            <Button 
-              variant="outline"
-              className="px-6 py-6 rounded-lg bg-dark-medium border-neon-magenta text-white hover:scale-105 transition-transform duration-300 hover:shadow-[0_0_15px_rgba(255,0,255,0.7)] animate-bounce-subtle"
-              onClick={() => scrollToSection('contact')}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Hire Me
-            </Button>
-            <Button 
-              variant="outline"
-              className="px-6 py-6 rounded-lg bg-dark-medium border-neon-cyan text-white hover:scale-110 transition-transform duration-300"
-              onClick={() => scrollToSection('projects')}
+              <Button 
+                variant="outline"
+                className="px-6 py-6 rounded-lg bg-dark-medium border-neon-magenta text-white hover:shadow-[0_0_15px_rgba(255,0,255,0.7)]"
+                onClick={() => scrollToSection('contact')}
+              >
+                Hire Me
+              </Button>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              View Projects
-            </Button>
+              <Button 
+                variant="outline"
+                className="px-6 py-6 rounded-lg bg-dark-medium border-neon-cyan text-white hover:shadow-[0_0_15px_rgba(0,255,255,0.7)]"
+                onClick={() => scrollToSection('projects')}
+              >
+                View Projects
+              </Button>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
         
         {/* Right side - Profile Photo with tech icons */}
-        <div className="w-full md:w-2/5 flex justify-center relative">
+        <motion.div 
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="w-full md:w-2/5 flex justify-center relative"
+        >
           <div className="relative">
             {/* Glowing background effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan to-neon-magenta opacity-50 rounded-2xl filter blur-xl transform scale-105 animate-glow-pulse"></div>
@@ -69,7 +94,7 @@ const HeroSection: React.FC = () => {
             <img 
               src="/lovable-uploads/04e3574a-9b90-4966-aa3e-ad040f1aa8f4.png"
               alt="Chaitanya Naidu" 
-              className="relative z-10 w-72 h-72 object-cover object-center rounded-2xl border-none"
+              className="relative z-10 w-80 h-80 object-cover object-top rounded-2xl"
             />
             
             {/* Falling tech icons container - positioned behind the profile image */}
@@ -77,10 +102,14 @@ const HeroSection: React.FC = () => {
               <FallingTechIcons />
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
       
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <motion.div 
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
         <a 
           href="#about" 
           onClick={(e) => {
@@ -91,7 +120,7 @@ const HeroSection: React.FC = () => {
         >
           <ChevronDown size={32} />
         </a>
-      </div>
+      </motion.div>
 
       <BlobAnimation />
     </section>
