@@ -1,8 +1,10 @@
+
 import React from 'react';
 import TypewriterText from './TypewriterText';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { CheckCircle, MessageSquare, Clock } from 'lucide-react';
 
 const AboutSection: React.FC = () => {
   const sectionRef = useRef(null);
