@@ -1,9 +1,13 @@
-
 import React from 'react';
 import TypewriterText from './TypewriterText';
-import { CheckCircle, Clock, MessageSquare } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
 
 const AboutSection: React.FC = () => {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
   const qualities = [
     {
       title: "Quality Focus",
@@ -31,10 +35,14 @@ const AboutSection: React.FC = () => {
   ];
   
   return (
-    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 relative">
+    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 relative min-h-screen" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
-        {/* Section heading */}
-        <div className="text-center mb-16 relative">
+        <motion.div 
+          className="text-center mb-16 relative"
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
             Shaping <TypewriterText 
               texts={["💡 ideas", "🚀 innovation", "🎨 creativity", "👁️ vision"]} 
@@ -42,12 +50,15 @@ const AboutSection: React.FC = () => {
             /> into Real Projects
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-neon-cyan to-neon-magenta mx-auto"></div>
-        </div>
+        </motion.div>
         
-        {/* About content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          {/* About text with skill bars */}
-          <div className="glass rounded-xl p-6 animate-fade-in-left relative overflow-hidden">
+          <motion.div 
+            className="glass rounded-xl p-6 animate-fade-in-left relative overflow-hidden"
+            initial={{ opacity: 0, x: -50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             <h3 className="text-2xl font-bold mb-4 text-glow-cyan">Who I Am</h3>
             <p className="text-light-gray mb-4 relative z-10">
               I am a passionate Full Stack Developer with expertise in creating responsive, 
@@ -63,7 +74,6 @@ const AboutSection: React.FC = () => {
               cloud technologies and UI/UX design principles.
             </p>
             
-            {/* Skill rating bars */}
             <div className="relative z-10 mt-6">
               <h4 className="text-xl font-semibold mb-4 text-glow-magenta">My Skills</h4>
               <div className="space-y-4">
@@ -83,14 +93,17 @@ const AboutSection: React.FC = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
           
-          {/* Journey Timeline */}
-          <div className="glass rounded-xl p-6 animate-fade-in-right relative overflow-hidden">
+          <motion.div 
+            className="glass rounded-xl p-6 animate-fade-in-right relative overflow-hidden"
+            initial={{ opacity: 0, x: 50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             <h3 className="text-2xl font-bold mb-4 text-glow-magenta">My Journey</h3>
             
             <div className="relative pl-8 border-l border-neon-cyan">
-              {/* Timeline item 1 - Freelancer */}
               <div className="mb-8 relative">
                 <div className="absolute -left-4 w-8 h-8 rounded-full bg-dark flex items-center justify-center border-2 border-neon-cyan">
                   <div className="w-3 h-3 bg-neon-cyan rounded-full"></div>
@@ -104,7 +117,6 @@ const AboutSection: React.FC = () => {
                 </div>
               </div>
               
-              {/* Timeline item 2 - Bachelor's */}
               <div className="mb-8 relative">
                 <div className="absolute -left-4 w-8 h-8 rounded-full bg-dark flex items-center justify-center border-2 border-neon-magenta">
                   <div className="w-3 h-3 bg-neon-magenta rounded-full"></div>
@@ -118,7 +130,6 @@ const AboutSection: React.FC = () => {
                 </div>
               </div>
               
-              {/* Timeline item 3 - Intermediate */}
               <div className="relative">
                 <div className="absolute -left-4 w-8 h-8 rounded-full bg-dark flex items-center justify-center border-2 border-neon-cyan">
                   <div className="w-3 h-3 bg-neon-cyan rounded-full"></div>
@@ -132,14 +143,30 @@ const AboutSection: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
         
-        {/* Quality cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2
+              }
+            }
+          }}
+        >
           {qualities.map((quality, index) => (
-            <div 
-              key={index} 
+            <motion.div 
+              key={index}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 }
+              }}
               className="glass rounded-xl p-6 transition-transform duration-300 hover:scale-105 hover:neon-border group"
             >
               <div className="flex flex-col items-center text-center">
@@ -153,12 +180,11 @@ const AboutSection: React.FC = () => {
                   {quality.description}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
       
-      {/* Background elements */}
       <div className="absolute top-0 right-0 w-1/4 h-1/4 bg-neon-cyan/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-neon-magenta/5 rounded-full blur-3xl"></div>
     </section>

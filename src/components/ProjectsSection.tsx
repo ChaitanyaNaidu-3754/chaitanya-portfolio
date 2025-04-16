@@ -1,7 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import ProjectCard from './ProjectCard';
 import { Github } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
 
 interface GithubRepo {
   name: string;
@@ -16,7 +18,6 @@ const ProjectsSection: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
-  // Repositories to display
   const targetRepos = [
     "ai_interview_prep", 
     "employee_management_system-reactjs", 
@@ -25,7 +26,6 @@ const ProjectsSection: React.FC = () => {
     "ShoppingCartApp-ReactJS"
   ];
   
-  // Project images mapping
   const projectImages = {
     "ai_interview_prep": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80",
     "employee_management_system-reactjs": "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=800&q=80",
@@ -34,7 +34,6 @@ const ProjectsSection: React.FC = () => {
     "ShoppingCartApp-ReactJS": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80"
   };
   
-  // Project descriptions mapping
   const projectDescriptions = {
     "ai_interview_prep": "AI-powered interview preparation platform with practice questions and feedback",
     "employee_management_system-reactjs": "React-based employee management system with comprehensive HR features",
@@ -43,7 +42,6 @@ const ProjectsSection: React.FC = () => {
     "ShoppingCartApp-ReactJS": "E-commerce shopping cart application built with React and state management"
   };
   
-  // Project tech tags mapping
   const projectTags = {
     "ai_interview_prep": ["Python", "Machine Learning", "React", "NLP"],
     "employee_management_system-reactjs": ["React", "Node.js", "MongoDB", "Express"],
@@ -51,6 +49,9 @@ const ProjectsSection: React.FC = () => {
     "Task-Management-System-with-Flask-Backend": ["Flask", "Python", "SQLAlchemy", "React"],
     "ShoppingCartApp-ReactJS": ["React", "Context API", "CSS", "JavaScript"]
   };
+  
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   
   useEffect(() => {
     const fetchGithubRepos = async () => {
@@ -62,12 +63,10 @@ const ProjectsSection: React.FC = () => {
         
         const repos: GithubRepo[] = await response.json();
         
-        // Filter repos by name
         const filteredRepos = repos.filter(repo => 
           targetRepos.includes(repo.name)
         );
         
-        // If we didn't find all the repos, use fallback data
         if (filteredRepos.length < targetRepos.length) {
           const projectData = targetRepos.map(repoName => {
             const matchedRepo = repos.find(r => r.name === repoName);
@@ -86,7 +85,6 @@ const ProjectsSection: React.FC = () => {
           
           setProjects(projectData);
         } else {
-          // Map repositories to project format
           const projectData = filteredRepos.map(repo => ({
             title: repo.name,
             description: projectDescriptions[repo.name as keyof typeof projectDescriptions] || 
@@ -107,7 +105,6 @@ const ProjectsSection: React.FC = () => {
         console.error('Error fetching GitHub repositories:', err);
         setError('Failed to load projects. Using fallback data.');
         
-        // Fallback data
         const fallbackProjects = targetRepos.map(repoName => ({
           title: repoName,
           description: projectDescriptions[repoName as keyof typeof projectDescriptions] || 
@@ -127,10 +124,14 @@ const ProjectsSection: React.FC = () => {
   }, []);
   
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 relative">
+    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 relative min-h-screen" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
-        {/* Section heading */}
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.5 }}
+        >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-glow-magenta">
             Projects
           </h2>
@@ -139,12 +140,23 @@ const ProjectsSection: React.FC = () => {
             {error && <span className="block mt-2 text-neon-cyan">{error}</span>}
           </p>
           <div className="w-24 h-1 bg-gradient-to-r from-neon-cyan to-neon-magenta mx-auto mt-6"></div>
-        </div>
+        </motion.div>
         
-        {/* Projects grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2
+              }
+            }
+          }}
+        >
           {isLoading ? (
-            // Loading skeleton
             Array.from({ length: 5 }).map((_, index) => (
               <div key={index} className="glass rounded-lg h-80 animate-pulse">
                 <div className="h-48 bg-dark-gray rounded-t-lg"></div>
@@ -160,23 +172,34 @@ const ProjectsSection: React.FC = () => {
             ))
           ) : (
             projects.map((project, index) => (
-              <ProjectCard
+              <motion.div
                 key={index}
-                title={project.title}
-                description={project.description}
-                image={project.image}
-                tags={project.tags}
-                githubUrl={project.githubUrl}
-                liveUrl={project.liveUrl}
-                className="animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              />
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0 }
+                }}
+              >
+                <ProjectCard
+                  title={project.title}
+                  description={project.description}
+                  image={project.image}
+                  tags={project.tags}
+                  githubUrl={project.githubUrl}
+                  liveUrl={project.liveUrl}
+                  className="animate-fade-in"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                />
+              </motion.div>
             ))
           )}
-        </div>
+        </motion.div>
         
-        {/* View all projects button */}
-        <div className="text-center">
+        <motion.div 
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
           <a 
             href="https://github.com/ChaitanyaNaidu-3754" 
             target="_blank" 
@@ -186,10 +209,9 @@ const ProjectsSection: React.FC = () => {
             <Github className="mr-2 w-5 h-5" />
             View All Projects
           </a>
-        </div>
+        </motion.div>
       </div>
       
-      {/* Background elements */}
       <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-neon-magenta/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-neon-cyan/5 rounded-full blur-3xl"></div>
     </section>

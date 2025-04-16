@@ -1,7 +1,10 @@
-
-import React from 'react';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 const TechStack: React.FC = () => {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  
   const techStack = [
     { 
       name: "HTML", 
@@ -104,23 +107,49 @@ const TechStack: React.FC = () => {
   ];
 
   return (
-    <section id="tech-stack" className="py-20 px-4 bg-dark-light">
+    <section id="tech-stack" className="py-20 px-4 bg-dark-light min-h-screen" ref={sectionRef}>
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-glow-cyan">My Tech Stack</h2>
-        <p className="text-center text-light-gray mb-16 max-w-3xl mx-auto">
-          I specialize in modern web technologies. Here are the key technologies I work with:
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-glow-cyan">My Tech Stack</h2>
+          <p className="text-center text-light-gray mb-16 max-w-3xl mx-auto">
+            I specialize in modern web technologies. Here are the key technologies I work with:
+          </p>
+        </motion.div>
         
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
+        <motion.div 
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8"
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
+        >
           {techStack.map((tech, index) => (
-            <div key={index} className="bg-dark p-6 rounded-lg shadow-lg hover:shadow-cyan neon-border-faint transition-all duration-300 hover:scale-105">
+            <motion.div 
+              key={index}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              className="bg-dark p-6 rounded-lg shadow-lg hover:shadow-cyan neon-border-faint transition-all duration-300 hover:scale-105"
+            >
               <div className="flex flex-col items-center text-center">
                 {tech.icon}
                 <h3 className="mt-4 font-semibold text-lg">{tech.name}</h3>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
