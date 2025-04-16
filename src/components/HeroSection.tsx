@@ -1,3 +1,4 @@
+
 import React from 'react';
 import TypewriterText from './TypewriterText';
 import { ChevronDown } from 'lucide-react';
@@ -68,7 +69,7 @@ const HeroSection: React.FC = () => {
             <img 
               src="/lovable-uploads/04e3574a-9b90-4966-aa3e-ad040f1aa8f4.png"
               alt="Chaitanya Naidu" 
-              className="relative z-10 w-72 h-72 object-contain object-center rounded-2xl border-2 border-white/20 shadow-lg"
+              className="relative z-10 w-72 h-72 object-cover object-center rounded-2xl border-none"
             />
             
             {/* Falling tech icons container - positioned behind the profile image */}
